@@ -267,38 +267,38 @@ $\left\| x \right\|^2$,
 Продивимось знову отримані формули і їх особливості.
 
 Без додаткових припущень маємо
-\begin{equation}\label{eq:minimize}
+\begin{equation*}
   w \cdot h \cdot \ln{\sigma^2}
   + \sum_{i \in I} \frac{ y_i^2}{\sigma^2}
   + \sum_{i = 1}^n x_i^2
   \to \min\limits_{x \in X}.
-\end{equation}
+\end{equation*}
 
 Оскільки дисперсія є константним невідомим параметром,
 можна спростити
-\begin{equation}\label{eq:minimize}
+\begin{equation*}
   \sum_{i \in I} \frac{ y_i^2}{\sigma^2}
   + \sum_{i = 1}^n x_i^2
   \to \min\limits_{x \in X}.
-\end{equation}
+\end{equation*}
 
 Якщо замість сум квадратів розглядати вибіркові дисперсії,
 задача приймає вигляд
-\begin{equation}\label{eq:minimize}
+\begin{equation*}
   \left( w \cdot h - 1 \right) \frac{\widetilde{y}^2}{\sigma^2}
   + \left( n - 1 \right) \cdot \widetilde{x}^2
   \to \min\limits_{x \in X}.
-\end{equation}
+\end{equation*}
 
 Користуючись тим припущенням,
 що оцінка дисперсії приблизно дорівнює реальній,
 повернули логарифм дисперсії в формулу,
 адже вона вже не константа, а замінена оцінкою, та отримали
-\begin{equation}\label{eq:minimize}
+\begin{equation*}
   w \cdot h \cdot \ln{\widetilde{y}^2}
   + \left( n - 1 \right) \cdot \widetilde{x}^2
   \to \min\limits_{x \in X}.
-\end{equation}
+\end{equation*}
 
 Найпростіша цільова функція --- сума квадратів відхилень
 між дійсним та синтезованим зображенням.
