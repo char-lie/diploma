@@ -128,9 +128,11 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 
 Ймовірність того,
 що буде пред'явлено зображення $t$ з параметрами $x$
-та перетворенням $\theta_M$, є сумісною ймовірністю
+при відомих перетвореннях $\theta_M$
+і положенням опорних точок $\theta_L$, є сумісною ймовірністю
 \begin{equation*}
-  p_{\theta} = \mathbb{P}_{\theta}\left\{
+  p_{\theta}
+  = \mathbb{P}_{\theta}\left\{
     f_{\theta_M}\left( \xi \right) + \eta = t,
     \zeta = P^2_{\theta_M}\left( G_L\left( \xi \right) \right) - \theta_L,
     \xi = x
@@ -156,6 +158,13 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
     \right\}
     \cdot \mathbb{P}\left( \xi = x \right).
 \end{equation*}
+
+Далі будемо позначати сумісну ймовірність без $\theta$,
+коли з контексту буде зрозуміло,
+які параметри використані
+\begin{align*}
+  \mathbb{P}\left( t, x \right) = p_{\theta}.
+\end{align*}
 
 \subsection{Баєсова задача розпізнавання}
 
