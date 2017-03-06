@@ -47,10 +47,31 @@ $\left[ x - \frac{\delta x}{2}; x + \frac{\delta x}{2} \right]$,
            {\sqrt{2 \cdot \pi \cdot \sigma^2_t}}.
 \end{equation*}
 
+Відхилення проекції опорної точки $l$ моделі,
+отриманої з параметрами $x$,
+від реального положення опорної точки на зображенні,
+позначимо $\Delta_l$
+\begin{equation*}
+  \Delta_l\left( x \right)
+  = P^2_{\theta_M}\left( G_l\left( x \right) \right) - \theta_l,
+  \qquad l \in L.
+\end{equation*}
+Ймовірність того, що параметри $x$ приймають саме такі значення,
+якщо відомі координати опорних точок,
+\begin{equation*}
+  \mathbb{P}_L\left( x \right)
+  = \delta x^{\left| L \right|} \cdot \prod_{l \in L}
+      \frac{\exp{\left\{- \frac{\Delta_l^2\left( x \right)}
+           {2 \cdot \sigma^2_L} \right\}}}
+           {\sqrt{2 \cdot \pi \cdot \sigma^2_L}}.
+\end{equation*}
+
 Сумісна ймовірність зображення $t$ та параметрів $x$
 \begin{equation*}
   \mathbb{P}\left( x, t \right)
-  = \mathbb{P}_I\left( x, t \right) \cdot \mathbb{P}_X\left( x, t \right)
+  = \mathbb{P}_Y\left( t \;\middle|\; x \right)
+    \cdot \mathbb{P}_X\left( x \right)
+    \cdot \mathbb{P}_L\left( x \right)
 \end{equation*}
 
 \subsection{Інтервальна функція витрат}
@@ -76,8 +97,15 @@ $\left[ x - \frac{\delta x}{2}; x + \frac{\delta x}{2} \right]$,
     &= \ln{\delta x^{w \cdot h}} +
         \sum_{i \in I}
         \left\{
-          - \frac{ y_i^2}{2 \cdot \sigma^2}
+          - \frac{y_i^2}{2 \cdot \sigma^2}
           - \frac{\ln{2} + \ln{\pi} + \ln{\sigma^2}}{2}
+        \right\}, \\
+    \mathbb{P}_L\left( x \right)
+    &= \ln{\delta x^{\left| L \right|}} +
+        \sum_{l \in L}
+        \left\{
+          - \frac{\Delta_l^2\left( x \right)}{2 \cdot \sigma_L^2}
+          - \frac{\ln{2} + \ln{\pi} + \ln{\sigma_L^2}}{2}
         \right\}.
   \end{split}
 \end{equation*}
@@ -87,22 +115,31 @@ $\left[ x - \frac{\delta x}{2}; x + \frac{\delta x}{2} \right]$,
 \begin{equation*}
   \sum_{i \in I}
     \left\{
-      - \frac{ y_i^2}{2 \cdot \sigma^2}
+      - \frac{y_i^2}{2 \cdot \sigma^2}
       - \frac{\ln{\sigma^2}}{2}
+    \right\}
+  +
+  \sum_{l \in L}
+    \left\{
+      - \frac{\Delta_l^2\left( x \right)}{2 \cdot \sigma_L^2}
+      - \frac{\ln{\sigma_L^2}}{2}
     \right\}
   - \sum_{i = 1}^n \frac{x_i^2}{2}
   \to \max\limits_{x \in X}.
 \end{equation*}
 Помножимо на $-2$ та винесемо логарифм дисперсії за знак суми
 \begin{equation}\label{eq:minimize}
-  w \cdot h \cdot \ln{\sigma^2}
+  \left| I \right| \cdot \ln{\sigma^2}
+  + \left| L \right| \cdot \ln{\sigma_L^2}
   + \sum_{i \in I} \frac{ y_i^2}{\sigma^2}
+  + \sum_{l \in L} \frac{ \Delta_l^2\left( x \right)}{\sigma_L^2}
   + \sum_{i = 1}^n x_i^2
   \to \min\limits_{x \in X}.
 \end{equation}
 
 Відомо, що $n$ набагато менше за $w \cdot h$.
-Визначимо, за яких умов можна знехтувати ймовірністю набору параметрів $x$.
+Визначимо, за яких умов можна знехтувати ймовірністю набору параметрів $x$,
+якщо не враховуються опорні точки.
 Для деякого $\varepsilon$ повинна виконуватись нерівність
 \begin{equation*}
   \left|
@@ -206,23 +243,32 @@ $\left\| x \right\|^2$,
   \sigma^2 < e^{-1.2}.
 \end{equation*}
 
-Повернемося до \eqref{eq:minimize} та замінимо дисперсію її оцінкою
+Повернемося до \eqref{eq:minimize}та замінимо дисперсію її оцінкою
 \cite{BorovkovMS}
 \begin{equation*}
-  w \cdot h
+  \left| I \right|
   \cdot \ln{
     \frac{\sum\limits_{i \in I} y_i^2}
-         {w \cdot h - 1}}
-  + w \cdot h - 1
+         {\left| I \right| - 1}}
+  + \left| I \right| - 1
+  + \left| L \right|
+  \cdot \ln{
+    \frac{\sum\limits_{l \in L} \Delta_l^2\left( x \right)}
+         {\left| L \right| - 1}}
+  + \left| L \right| - 1
   + \sum_{i = 1}^n x_i^2
   \to \min\limits_{x \in X}.
 \end{equation*}
 Позбавимося константних доданків
 \begin{equation*}
-  w \cdot h
+  \left| I \right|
   \cdot \ln{
     \frac{\sum\limits_{i \in I} y_i^2}
-         {w \cdot h - 1}}
+         {\left| I \right| - 1}}
+  + \left| L \right|
+  \cdot \ln{
+    \frac{\sum\limits_{l \in L} \Delta_l^2\left( x \right)}
+         {\left| L \right| - 1}}
   + \sum_{i = 1}^n x_i^2
   \to \min\limits_{x \in X}.
 \end{equation*}
@@ -232,8 +278,10 @@ $\left\| x \right\|^2$,
 яка не прив'язана до кожного пікселя вхідного зображення $t$.
 Для цього перепишемо доданки як середньоквадратичні відхилення
 \begin{equation*}
-  w \cdot h
+  \left| I \right|
   \cdot \ln{\widetilde{y}^2}
+  + \left| L \right|
+  \cdot \ln{\left[ \widetilde{\Delta}^2\left( x \right) \right]}
   + \left( n - 1 \right) \cdot \widetilde{x}^2
   \to \min\limits_{x \in X}.
 \end{equation*}
@@ -268,8 +316,10 @@ $\left\| x \right\|^2$,
 
 Без додаткових припущень маємо
 \begin{equation*}
-  w \cdot h \cdot \ln{\sigma^2}
+  \left| I \right| \cdot \ln{\sigma^2}
+  + \left| L \right| \cdot \ln{\sigma_L^2}
   + \sum_{i \in I} \frac{ y_i^2}{\sigma^2}
+  + \sum_{l \in L} \frac{ \Delta_l^2\left( x \right)}{\sigma_L^2}
   + \sum_{i = 1}^n x_i^2
   \to \min\limits_{x \in X}.
 \end{equation*}
@@ -278,14 +328,18 @@ $\left\| x \right\|^2$,
 можна спростити
 \begin{equation*}
   \sum_{i \in I} \frac{ y_i^2}{\sigma^2}
+  + \sum_{l \in L} \frac{ \Delta_l^2\left( x \right)}{\sigma_L^2}
   + \sum_{i = 1}^n x_i^2
   \to \min\limits_{x \in X}.
 \end{equation*}
 
 Якщо замість сум квадратів розглядати вибіркові дисперсії,
-задача приймає вигляд
+щоб позбутися невідомих дисперсій, задача приймає вигляд
 \begin{equation*}
-  \left( w \cdot h - 1 \right) \frac{\widetilde{y}^2}{\sigma^2}
+  \left| I \right|
+  \cdot \ln{\widetilde{y}^2}
+  + \left| L \right|
+  \cdot \ln{\left[ \widetilde{\Delta}^2\left( x \right) \right]}
   + \left( n - 1 \right) \cdot \widetilde{x}^2
   \to \min\limits_{x \in X}.
 \end{equation*}
