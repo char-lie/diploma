@@ -166,60 +166,73 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
   W: X \times X \rightarrow \mathbb{R}.
 \end{equation*}
 Введемо множину стратегій розпізнавання $Q$ як функцій,
-що кожному $t \in T$ ставлять у відповідність параметри,
+що кожному зображенню $t \in T$
+та набору відображень $\theta \in \Theta$
+ставлять у відповідність параметри,
 з якими було згенеровано обличчя на даному зображенні
 \begin{equation*}
-  Q = X^T.
+  Q = X^{\Theta \times T}.
 \end{equation*}
 Стратегію $q \in Q$
 \begin{equation*}
-  q: T \rightarrow X,
+  q: \Theta \times T \rightarrow X,
 \end{equation*}
-яка для зображення $t$ дає результат $x$, позначимо
+яка для зображення $t$ і набору $\theta$ дає результат $x$, позначимо
 \begin{equation*}
-  q\left( t \right) = x.
+  q_{\theta}\left( t \right) = x.
 \end{equation*}
 Математичне очікування функції витрат $W$
 як функції випадкової пари $\left\langle t, x \right\rangle$
 для даного вирішального правила $q$ називається Баєсовим ризиком
-\cite{schlesinger:2002}
-\begin{equation*}
-  R \left( q \right)
-  = \sum\limits_{t \in T} \int\limits_{X}
-    W \left( x, q\left( t \right) \right)
-    d F\left( t, x \right)
-    = \Mean{W\left( x, q\left( t \right) \right)},
-\end{equation*}
-де $F$ --- функція сумісного розподілу зображення
-та параметрів зображеної моделі.
-Задача --- знайти таке вирішальне правило $q$,
-за якого Баєсів ризик $R\left( q \right)$ мінімальний
-для даної функції штрафу $W$
 \cite{wald1955selected}
 \begin{equation*}
-  q^* = \argmin_{q \in Q} R\left( q \right).
+  R_{\theta} \left( q \right)
+  = \sum\limits_{t \in T} \int\limits_{X}
+    W \left( x, q_{\theta}\left( t \right) \right)
+    d F_{\theta}\left( t, x \right)
+    = \Meanof{\theta}{W\left( x, q_{\theta}\left( t \right) \right)},
+\end{equation*}
+де $F_{\theta}$ --- функція сумісного розподілу зображення
+та параметрів зображеної моделі при відомих $\theta$.
+Задача --- знайти таке вирішальне правило $q$,
+за якого Баєсів ризик $R_{\theta}\left( q \right)$ мінімальний
+для даної функції штрафу $W$ при тих параметрах $\theta$,
+що дають найбільший ризик \cite{schlesinger:2002}
+\begin{equation*}
+  q^* = \argmin_{q \in Q}
+        \max\limits_{\theta \in \Theta} R_{\theta}\left( q \right).
 \end{equation*}
 Оскільки зображення $t$ не залежать одне від одного,
-мінімізація суми еквівалентна мінімізації кожного її елементу
+мінімізація і максимізація суми
+еквівалентна мінімізації і максимізації кожного її елементу
 \begin{equation*}
   q^*\left( t \right)
-  = \argmin_{q \in Q} \int\limits_{X}
-    W \left( x, q\left( t \right) \right)
-    d F\left( t, x \right).
+  = \argmin_{q \in Q} \max\limits_{\theta \in \Theta}
+    \int\limits_{X}
+    W \left( x, q_{\theta}\left( t \right) \right)
+    d F_{\theta}\left( t, x \right).
 \end{equation*}
 Можна переписати через умовне математичне очікування
 \begin{equation*}
   q^*\left( t \right)
-  = \argmin_{q \in Q}
-    \Mean{W\left( x, q\left( t \right) \right) \mcond t }
+  = \argmin_{q \in Q} \max\limits_{\theta \in \Theta}
+    \Meanof{\theta}{W\left( x, q_{\theta}\left( t \right) \right) \mcond t }
     \cdot \mathbb{P}\left( t \right).
 \end{equation*}
 Константний множник не впливає на розв'язок
 \begin{equation*}
   q^*\left( t \right)
-  = \argmin_{q \in Q}
-    \Mean{W\left( x, q\left( t \right) \right) \mcond t}.
+  = \argmin_{q \in Q} \max\limits_{\theta \in \Theta}
+    \Meanof{\theta}{W\left( x, q_{\theta}\left( t \right) \right) \mcond t}.
 \end{equation*}
+
+Далі зафіксуємо параметр $\theta$ і будемо робити розрахунки так,
+ніби це значення і є тим, що дає найбільший ризик.
+Метою цієї дії буде проведення базових математичних обчислень,
+що потім будуть використовуватися.
+Також це допоможе аналізу існуючих рішень.
+Після цих обчислень буде розглянуто,
+як саме враховувати вплив невідомих параметрів на розв'язок.
 
 \subsection{Бінарна функція витрат}
 
