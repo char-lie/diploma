@@ -303,7 +303,7 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 \end{equation*}
 та прирівняти до нуля
 \begin{equation*}
-  \sum_{X} \left( x'_i - x_i \right) dF\left( t, x \right) = 0,
+  \int\limits_{X} \left( x'_i - x_i \right) dF\left( t, x \right) = 0,
   \qquad i = 1..n.
 \end{equation*}
 Значення компоненти
@@ -365,11 +365,11 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 \end{equation*}
 Значення компоненти
 \begin{equation*}
-  x'_i = \frac{\int\limits_{X} x_i dF\left( t, x \right)}
-    {\sum\limits_{x \in X}
-      \mathbb{P} \left( t, x \right)}
-  = \sum\limits_{x \in X}
-    \mathbb{P} \left( t, x \right) \cdot x_i, \qquad i = 1..n.
+  x'_i
+  = \frac{\int\limits_{X} x_i dF\left( t, x \right)}
+         {\int\limits_{X} dF\left( t, x \right)}
+  = \frac{\int\limits_{X} x_i dF\left( t, x \right)}
+         {\mathbb{P}\left( t \right)}
 \end{equation*}
 Результуюча стратегія
 \begin{equation*}
