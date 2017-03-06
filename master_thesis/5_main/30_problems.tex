@@ -269,13 +269,13 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
     = \sum_{v \in V} \left[
         G_v\left( x \right) - G_v\left( x' \right)
       \right]^2 = \\
-    = \sum_{v \in V} \sum_{p \in P} \left[
-        \lambda_p^v \cdot \left( x_p - x'_p \right)
+    = \sum_{v \in V} \sum_{i = 1}^n \left[
+        \lambda_i^v \cdot \left( x_i - x'_i \right)
       \right]^2
-    = \sum_{p \in P} \left\{ \left( x_p - x'_p \right)^2
-      \cdot \sum_{v \in V} \left( \lambda_p^v \right)^2 \right\} = \\
-    = \left| \beta_p^2 = \sum_{v \in V} \left( \lambda_p^v \right)^2 \right|
-    = \sum_{p \in P} \beta_p^2 \cdot \left( x_p - x'_p \right)^2.
+    = \sum_{i = 1}^n \left\{ \left( x_i - x'_i \right)^2
+      \cdot \sum_{v \in V} \left( \lambda_i^v \right)^2 \right\} = \\
+    = \left| \beta_i^2 = \sum_{v \in V} \left( \lambda_i^v \right)^2 \right|
+    = \sum_{i = 1}^n \beta_i^2 \cdot \left( x_i - x'_i \right)^2.
   \end{split}
 \end{equation*}
 
@@ -334,7 +334,7 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 \begin{equation*}
   W \left( x, x' \right)
   = \left\| x - x' \right\|^2
-  = \sum_{p \in P} \left( x_p - x'_p \right)^2.
+  = \sum_{i = 1}^n \left( x_i - x'_i \right)^2.
 \end{equation*}
 
 Оберемо стратегію $q^*$,
