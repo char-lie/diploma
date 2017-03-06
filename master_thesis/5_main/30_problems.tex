@@ -244,10 +244,10 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 Для неперервного випадку така функція витрат не підходить,
 бо Баєсів ризик
 \begin{equation*}
-  R \left( q \right)
+  R_{\theta}\left( q \right)
   = \sum\limits_{t \in T}
     \int\limits_{x \in X}
-    \mathbbm{1} \left( x \neq q\left( t \right) \right)
+    \mathbbm{1} \left( x \neq q_{\theta}\left( t \right) \right)
     \cdot p\left( t, x \right) d\; x
   = 1,\qquad
   \forall q \in Q.
@@ -260,7 +260,7 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 що мінімізує математичне очікування цієї функції витрат
 \begin{equation*}
   \begin{split}
-    q^* \left( t \right)
+    q^*_{\theta}\left( t \right)
     = \argmin_{x'} \left\{
       \sum\limits_{x \in X}
         \mathbb{P}\left( t, x \right)
@@ -280,7 +280,7 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 \end{equation*}
 В результаті
 \begin{equation*}
-  q^* \left( t \right)
+  q^*_{\theta}\left( t \right)
   = \argmax_x \mathbb{P} \left( t, x \right).
 \end{equation*}
 
@@ -305,7 +305,7 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 Оберемо стратегію, що мінімізує математичне очікування цієї функції витрат
 \begin{equation*}
   \begin{split}
-    q^* \left( t \right)
+    q^*_{\theta}\left( t \right)
     = \argmin_{x'} \left\{
       \int\limits_{X}
         \mathbbm{1} \left( x \notin \delta\left( x' \right) \right)
@@ -321,9 +321,9 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 \end{equation*}
 В результаті
 \begin{equation*}
-  q^* \left( t \right)
+  q^*_{\theta}\left( t \right)
   = \argmax_{x'} \int\limits_{\delta\left( x' \right)}
-    dF\left( t, x \right)
+    dF_{\theta}\left( t, x \right)
   = \argmax_{x'} \mathbb{P} \left( t, x \in \delta\left( x' \right) \right).
 \end{equation*}
 Потрібно обрати таку точку,
@@ -358,11 +358,11 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 Оберемо стратегію $q^*$,
 що мінімізує математичне очікування цієї функції витрат
 \begin{equation*}
-  q^* \left( t \right)
+  q^*_{\theta}\left( t \right)
   = \argmin_{x'} \left\{
     \int\limits_{X}
         \sum_{i = 1}^n \beta_i^2 \cdot \left( x'_i - x_i \right)^2
-        dF\left( t, x \right)
+        dF_{\theta}\left( t, x \right)
     \right\}.
 \end{equation*}
 Щоб мінімізувати неперервну функцію від параметрів $x'_i$,
@@ -372,33 +372,33 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 \begin{equation*}
   \frac{\partial \int\limits_{X}
       \sum\limits_{i = 1}^n \beta_i^2 \cdot \left( x'_i - x_i \right)^2
-      dF\left( t, x \right)
+      dF_{\theta}\left( t, x \right)
   }{\partial x'_i}
   = 2 \cdot \int\limits_{X}
-    \beta_i^2 \cdot \left( x'_i - x_i \right) dF\left( t, x \right),
+    \beta_i^2 \cdot \left( x'_i - x_i \right) dF_{\theta}\left( t, x \right),
     \qquad i = 1..n
 \end{equation*}
 та прирівняти до нуля
 \begin{equation*}
-  \int\limits_{X} \left( x'_i - x_i \right) dF\left( t, x \right) = 0,
+  \int\limits_{X} \left( x'_i - x_i \right) dF_{\theta}\left( t, x \right) = 0,
   \qquad i = 1..n.
 \end{equation*}
 Значення компоненти
 \begin{equation*}
   x'_i
-  = \frac{\int\limits_{X} x_i dF\left( t, x \right)}
-         {\int\limits_{X} dF\left( t, x \right)}
-  = \frac{\int\limits_{X} x_i dF\left( t, x \right)}
+  = \frac{\int\limits_{X} x_i dF_{\theta}\left( t, x \right)}
+         {\int\limits_{X} dF_{\theta}\left( t, x \right)}
+  = \frac{\int\limits_{X} x_i dF_{\theta}\left( t, x \right)}
          {\mathbb{P}\left( t \right)}
 \end{equation*}
 Результуюча стратегія
 \begin{equation*}
-  q^*\left( t \right)
-  = \frac{\int\limits_{X} x dF\left( t, x \right)}{\mathbb{P}\left( t \right)}.
+  q^*_{\theta}\left( t \right)
+  = \frac{\int\limits_{X} x dF_{\theta}\left( t, x \right)}{\mathbb{P}\left( t \right)}.
 \end{equation*}
 У вигляді умовного математичного очікування
 \begin{equation*}
-  q^*\left( t \right) = \Mean{x \mcond t}.
+  q^*_{\theta}\left( t \right) = \Meanof{\theta}{x \mcond t}.
 \end{equation*}
 
 Ділення на ймовірність появи зображення $t$ можна сприймати як нормування
@@ -418,11 +418,11 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 Оберемо стратегію $q^*$,
 що мінімізує математичне очікування цієї функції витрат
 \begin{equation*}
-  q^* \left( t \right)
+  q^*_{\theta}\left( t \right)
   = \argmin_{x'} \left\{
     \int\limits_{X}
         \sum_{i = 1}^n \left( x'_i - x_i \right)^2
-        dF\left( t, x \right)
+        dF_{\theta}\left( t, x \right)
     \right\}.
 \end{equation*}
 Маємо мінімізацію неперервної функції від параметрів $x'_i$,
@@ -430,32 +430,32 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 \begin{equation*}
   \frac{\partial \int\limits_{X}
       \sum\limits_{i = 1}^n \left( x'_i - x_i \right)^2
-      dF\left( t, x \right)
+      dF_{\theta}\left( t, x \right)
   }{\partial x'_i}
-  = 2 \cdot \int\limits_{x \in X} dF\left( t, x \right)
-    \cdot \left( x'_i - x_i \right), \qquad i = 1..n
+  = 2 \cdot \int\limits_{x \in X} \left( x'_i - x_i \right)
+    dF_{\theta}\left( t, x \right), \qquad i = 1..n
 \end{equation*}
 та прирівняти до нуля
 \begin{equation*}
   \int\limits_{X}
-    \left( x'_i - x_i \right) dF\left( t, x \right) = 0, \qquad i = 1..n.
+    \left( x'_i - x_i \right) dF_{\theta}\left( t, x \right) = 0, \qquad i = 1..n.
 \end{equation*}
 Значення компоненти
 \begin{equation*}
   x'_i
-  = \frac{\int\limits_{X} x_i dF\left( t, x \right)}
-         {\int\limits_{X} dF\left( t, x \right)}
-  = \frac{\int\limits_{X} x_i dF\left( t, x \right)}
+  = \frac{\int\limits_{X} x_i dF_{\theta}\left( t, x \right)}
+         {\int\limits_{X} dF_{\theta}\left( t, x \right)}
+  = \frac{\int\limits_{X} x_i dF_{\theta}\left( t, x \right)}
          {\mathbb{P}\left( t \right)}
 \end{equation*}
 Результуюча стратегія
 \begin{equation*}
-  q^*\left( t \right)
-  = \frac{\int\limits_{X} x dF\left( t, x \right)}{\mathbb{P}\left( t \right)}.
+  q^*_{\theta}\left( t \right)
+  = \frac{\int\limits_{X} x dF_{\theta}\left( t, x \right)}{\mathbb{P}\left( t \right)}.
 \end{equation*}
 Оптимальна стратегія як умовне математичне очікування
 \begin{equation*}
-  q^*\left( t \right) = \Mean{x \mcond t}.
+  q^*_{\theta}\left( t \right) = \Meanof{\theta}{x \mcond t}.
 \end{equation*}
 
 Отримана та ж стратегія,
