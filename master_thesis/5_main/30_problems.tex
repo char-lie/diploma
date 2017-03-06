@@ -116,28 +116,46 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
   \eta_i \sim \mathcal{N}\left( 0, \sigma^2 \right), \qquad
   i \in I.
 \end{equation*}
-Ймовірність того, що буде пред'явлено зображення $t$ з параметрами $x$,
-є сумісною ймовірністю
+
+Вважаємо, що опорні точки моделі проецюються на множину пікселів
+з певною похибкою.
+Ця похибка зумовлена такими факторами,
+як дискретність координат зображення та неточністю співставлення моделей
 \begin{equation*}
-  \mathbb{P}\left( f\left( \xi \right) + \eta = t, \xi = x \right).
+  P^2_{\theta_M}\left( m_l \right) = \theta_L^t\left( l \right) + \zeta_l,
+  \qquad \zeta_l \sim \mathcal{N}\left( 0, \sigma_L^2 \right).
+\end{equation*}
+
+Ймовірність того,
+що буде пред'явлено зображення $t$ з параметрами $x$
+та перетворенням $\theta_M$, є сумісною ймовірністю
+\begin{equation*}
+  p_{\theta} = \mathbb{P}_{\theta}\left\{
+    f_{\theta_M}\left( \xi \right) + \eta = t,
+    \zeta = P^2_{\theta_M}\left( G_L\left( \xi \right) \right) - \theta_L,
+    \xi = x
+  \right\}.
 \end{equation*}
 З визначення умовної ймовірності випливає
 \begin{equation*}
-  \mathbb{P}\left( f\left( \xi \right) + \eta = t, \xi = x \right)
-  = \mathbb{P}\left( f\left( \xi \right) + \eta = t
-                    \;\middle|\; \xi = x \right)
-    \cdot \mathbb{P}\left( \xi = x \right).
+  p_{\theta}
+  = \mathbb{P}_{\theta}\left\{
+      f_{\theta_M}\left( \xi \right) + \eta = t,
+      P^2_{\theta_M}\left( G_L\left( \xi \right) \right) - \zeta = \theta_L
+      \;\middle|\; \xi = x \right\}
+    \cdot \mathbb{P}\left( \xi = x \right)
 \end{equation*}
-Позбавимося умовної ймовірності, замінивши $\xi$ на $x$
+Позбавимося умовної ймовірності, замінивши $\xi$ на $x$.
+Також розіб'ємо перший множник на дві ймовірності,
+бо ці події не залежать одна від одної
 \begin{equation*}
-  \mathbb{P}\left( f\left( \xi \right) + \eta = t, \xi = x \right)
-  = \mathbb{P}\left( \eta = t - f\left( x \right) \right)
+  p_{\theta}
+  = \mathbb{P}_{\theta_M}\left( \eta = t - f_{\theta_M}\left( x \right) \right)
+    \cdot \mathbb{P}_{\theta}\left\{
+      \zeta = P^2_{\theta_M}\left( G_L\left( x \right) \right) - \theta_L
+    \right\}
     \cdot \mathbb{P}\left( \xi = x \right).
 \end{equation*}
-Це означає,
-що ймовірність отримати на вході зображення $t$ згенероване з параметрами $x$
-дорівнює добутку ймовірності отримати зображення з шумом $t - f\left( x \right)$
-на ймовірність того, що це зображення згенеровано з параметрами $x$.
 
 \subsection{Баєсова задача розпізнавання}
 
