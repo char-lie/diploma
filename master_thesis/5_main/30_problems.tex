@@ -236,28 +236,29 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
   q^* = \argmin_{q \in Q}
         \max\limits_{\theta \in \Theta} R_{\theta}\left( q \right).
 \end{equation*}
+
 Оскільки зображення $t$ не залежать одне від одного,
 мінімізація і максимізація суми
 еквівалентна мінімізації і максимізації кожного її елементу
 \begin{equation*}
   q^*\left( t \right)
-  = \argmin_{q \in Q} \max\limits_{\theta \in \Theta}
+  = \argmin_{x' \in X} \max\limits_{\theta \in \Theta}
     \int\limits_{X}
-    W \left( x, q_{\theta}\left( t \right) \right)
+    W \left( x, x' \right)
     d F_{\theta}\left( t, x \right).
 \end{equation*}
 Можна переписати через умовне математичне очікування
 \begin{equation*}
   q^*\left( t \right)
-  = \argmin_{q \in Q} \max\limits_{\theta \in \Theta}
-    \Meanof{\theta}{W\left( x, q_{\theta}\left( t \right) \right) \mcond t }
+  = \argmin_{x' \in X} \max\limits_{\theta \in \Theta}
+    \Meanof{\theta}{W\left( x, x' \right) \mcond t }
     \cdot \mathbb{P}\left( t \right).
 \end{equation*}
 Константний множник не впливає на розв'язок
 \begin{equation*}
   q^*\left( t \right)
-  = \argmin_{q \in Q} \max\limits_{\theta \in \Theta}
-    \Meanof{\theta}{W\left( x, q_{\theta}\left( t \right) \right) \mcond t}.
+  = \argmin_{x' \in X} \max\limits_{\theta \in \Theta}
+    \Meanof{\theta}{W\left( x, x' \right) \mcond t}.
 \end{equation*}
 
 Далі зафіксуємо параметр $\theta$ і будемо робити розрахунки так,
