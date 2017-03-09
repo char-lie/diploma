@@ -203,6 +203,31 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 \end{equation*}
 де $F_{\theta}$ --- функція сумісного розподілу зображення
 та параметрів зображеної моделі при відомих $\theta$.
+
+Стратегія $q$ називається баєсовою,
+якщо може бути представлена у вигляді \cite{schlezinger:2013}
+\begin{equation}\label{eq:bayesian}
+  q
+  = \argmin\limits_{q \in Q}
+    \sum_{\theta \in \Theta}
+    \tau\left( \theta \right) \cdot R_{\theta}\left( q \right),
+  \qquad
+  \tau\left( \theta \right) \ge 0,
+  \qquad
+  \sum_{\theta \in \Theta} \tau\left( \theta \right) = 1.
+\end{equation}
+Стратегії іншого вигляду є негодящими:
+якщо $q_0$ --- стратегія,
+яку не можна представити у вигляді \eqref{eq:bayesian},
+обов'язково знайдеться Баєсова стратегія $q$ така, що
+\begin{equation*}
+  R_{\theta}\left( q_0 \right) > R_{\theta}\left( q \right), \qquad
+  \forall \theta \in \Theta.
+\end{equation*}
+Це означає,
+що при будь-якому значенні параметрів $\theta$
+небаєсова стратегія буде розпізнавати гірше за певну баєсову.
+
 Задача --- знайти таке вирішальне правило $q$,
 за якого Баєсів ризик $R_{\theta}\left( q \right)$ мінімальний
 для даної функції штрафу $W$ при тих параметрах $\theta$,
