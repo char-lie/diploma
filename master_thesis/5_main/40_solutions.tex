@@ -491,8 +491,10 @@ $\left\| x \right\|^2$,
 Згідно з \eqref{eq:energy:common} стає зрозуміло,
 звідки беруться ваги $\omega$
 \begin{equation*}
-  \sum_{i \in I' \subset I} \frac{y_i^2}{\left| I' \right| \cdot \sigma^2}
-  + \sum_{l \in L} \frac{\Delta_l^2\left( x \right)}
+  \left| I' \right| \cdot
+    \sum_{i \in I' \subset I} \frac{y_i^2}{\left| I' \right| \cdot \sigma^2}
+  + \left| L \right| \cdot
+    \sum_{l \in L} \frac{\Delta_l^2\left( x \right)}
                         {\left| L \right| \cdot \sigma_L^2}
   + \sum_{i = 1}^n x_i^2
   \to \min\limits_{x \in X}.
@@ -500,32 +502,45 @@ $\left\| x \right\|^2$,
 Оскільки $\omega_c = 1$,
 а ділення енергії на константу не змінює результату мінімізації,
 можна помножити вираз \eqref{eq:energy:common} на дисперсію шуму картинки
+та поділити на розмір сегменту, що розглядається
 \begin{equation*}
   \sum_{i \in I' \subset I} \frac{y_i^2}{\left| I' \right|}
-  + \frac{\sigma^2}{\sigma_L^2}
+  + \frac{\sigma^2}{\sigma_L^2} \cdot \frac{\left| L \right|}{\left| I' \right|}
     \cdot \sum_{l \in L} \frac{\Delta_l^2\left( x \right)}{\left| L \right|}
-  + \sigma^2 \cdot \sum_{i = 1}^n x_i^2
+  + \frac{\sigma^2}{\left| I' \right|} \cdot \sum_{i = 1}^n x_i^2
   \to \min\limits_{x \in X}.
 \end{equation*}
 Маємо систему рівнянь
 \begin{equation*}
   \begin{cases}
-    \omega_r &= \sigma^2, \\
-    \omega_l &= \frac{\sigma^2}{\sigma_L^2},
+    \omega_r &= \frac{\sigma^2}{\left| I' \right|}, \\
+    \omega_l &= \frac{\sigma^2}{\sigma_L^2}
+                \cdot \frac{\left| L \right|}{\left| I' \right|},
   \end{cases}
   \implies
   \begin{cases}
-    \sigma^2 &= \omega_r, \\
-    \sigma_L^2 &= \frac{\omega_r}{\omega_l}.
+    \sigma^2 &= \omega_r \cdot \left| I' \right|, \\
+    \sigma_L^2 &= \frac{\omega_r}{\omega_l} \cdot \left| L \right|.
   \end{cases}
 \end{equation*}
 Підставимо значення $\omega_r = 2.5 \cdot 10^{-5}$ і $\omega_l = 10$
 \begin{equation*}
   \begin{cases}
-    \sigma^2 &= 2.5 \cdot 10^{-5}, \\
-    \sigma_L^2 &= 2.5 \cdot 10^{-6}.
+    \sigma^2 &= 2.5 \cdot 10^{-5} \cdot \left| I' \right|, \\
+    \sigma_L^2 &= 2.5 \cdot 10^{-6} \cdot \left| L \right|.
   \end{cases}
 \end{equation*}
 Бачимо,
-що автори цього алгоритму поставили жорстке обмеження щодо якості зображення
-та методу знаходження опорних точок.
+що дисперсія шуму лінійно зростає з площею частини зображення,
+яку обіймає обличчя.
+Для картинки $500 \times 500$ вона дорівнює одиниці,
+а для одного мегапікселя це значення вже сягає $25$.
+Для більших зображень сама модель голови має замалу точність,
+тому немає сенсу розглядати поведінку дисперсії на них.
+Дисперсія відхилення опорних точок від дійсного положення
+лінійно залежить від їх кількості.
+Точних даних немає,
+проте використаний для знаходження особливих точок алгоритм
+зазвичай демонструється з набором із $194$ опорних точок,
+які було запропоновано у базі PUT Face \cite{put-face:2008}.
+В такому випадку дисперсія дорівнює $4.85 \cdot 10^{-4}$.
