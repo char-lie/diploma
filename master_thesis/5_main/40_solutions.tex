@@ -354,10 +354,13 @@ $\left[ x - \frac{\delta x}{2}; x + \frac{\delta x}{2} \right]$,
 \end{equation*}
 для якої коефіцієнти $\omega_c$, $\omega_r$ і $\omega_l$
 обираються рівними $1$, $2.5 \cdot 10^{-5}$ і $10$ відповідно.
-Згідно з \eqref{eq:energy:common} стає зрозуміло,
-звідки беруться ваги $\omega$
+Завдяки \eqref{eq:energy:common} стає зрозуміло,
+звідки беруться ваги $\omega$.
+Треба лише замінити суму квадратів елементів шуму $y_i$
+добутом розміру картинки $\left| I \right|$ зі
+зміщеною оцінкою його дисперсії на пікселях з обличчям $I' \subset I$
 \begin{equation*}
-  \left| I' \right| \cdot
+  \left| I \right| \cdot
     \sum_{i \in I' \subset I} \frac{y_i^2}{\left| I' \right| \cdot \sigma^2}
   + \left| L \right| \cdot
     \sum_{l \in L} \frac{\Delta_l^2\left( x \right)}
@@ -367,38 +370,37 @@ $\left[ x - \frac{\delta x}{2}; x + \frac{\delta x}{2} \right]$,
 \end{equation*}
 Оскільки $\omega_c = 1$,
 а ділення енергії на константу не змінює результату мінімізації,
-можна помножити вираз \eqref{eq:energy:common} на дисперсію шуму картинки
-та поділити на розмір сегменту, що розглядається
+можна помножити вираз \eqref{eq:energy:common}
+на дисперсію шуму картинки та поділити на її розмір
 \begin{equation*}
   \sum_{i \in I' \subset I} \frac{y_i^2}{\left| I' \right|}
-  + \frac{\sigma^2}{\sigma_L^2} \cdot \frac{\left| L \right|}{\left| I' \right|}
+  + \frac{\sigma^2}{\sigma_L^2} \cdot \frac{\left| L \right|}{\left| I \right|}
     \cdot \sum_{l \in L} \frac{\Delta_l^2\left( x \right)}{\left| L \right|}
-  + \frac{\sigma^2}{\left| I' \right|} \cdot \sum_{i = 1}^n x_i^2
+  + \frac{\sigma^2}{\left| I \right|} \cdot \sum_{i = 1}^n x_i^2
   \to \min\limits_{x \in X}.
 \end{equation*}
 Маємо систему рівнянь
 \begin{equation*}
   \begin{cases}
-    \omega_r &= \frac{\sigma^2}{\left| I' \right|}, \\
+    \omega_r &= \frac{\sigma^2}{\left| I \right|}, \\
     \omega_l &= \frac{\sigma^2}{\sigma_L^2}
-                \cdot \frac{\left| L \right|}{\left| I' \right|},
+                \cdot \frac{\left| L \right|}{\left| I \right|},
   \end{cases}
   \implies
   \begin{cases}
-    \sigma^2 &= \omega_r \cdot \left| I' \right|, \\
+    \sigma^2 &= \omega_r \cdot \left| I \right|, \\
     \sigma_L^2 &= \frac{\omega_r}{\omega_l} \cdot \left| L \right|.
   \end{cases}
 \end{equation*}
 Підставимо значення $\omega_r = 2.5 \cdot 10^{-5}$ і $\omega_l = 10$
 \begin{equation*}
   \begin{cases}
-    \sigma^2 &= 2.5 \cdot 10^{-5} \cdot \left| I' \right|, \\
+    \sigma^2 &= 2.5 \cdot 10^{-5} \cdot \left| I \right|, \\
     \sigma_L^2 &= 2.5 \cdot 10^{-6} \cdot \left| L \right|.
   \end{cases}
 \end{equation*}
 Бачимо,
-що дисперсія шуму лінійно зростає з площею частини зображення,
-яку обіймає обличчя.
+що дисперсія шуму лінійно зростає з площею зображення.
 Для картинки $500 \times 500$ вона дорівнює одиниці,
 а для одного мегапікселя це значення вже сягає $25$.
 Для більших зображень сама модель голови має замалу точність,
