@@ -136,114 +136,7 @@ $\left[ x - \frac{\delta x}{2}; x + \frac{\delta x}{2} \right]$,
   + \sum_{i = 1}^n x_i^2
   \to \min\limits_{x \in X}.
 \end{equation}
-
-Відомо, що $n$ набагато менше за $w \cdot h$.
-Визначимо, за яких умов можна знехтувати ймовірністю набору параметрів $x$,
-якщо не враховуються опорні точки.
-Для деякого $\varepsilon$ повинна виконуватись нерівність
-\begin{equation*}
-  \left|
-    \frac{\sum\limits_{i = 1}^n x_i^2}
-         {w \cdot h \cdot \ln{\sigma^2}
-          + \sum\limits_{i \in I}
-            \frac{y_i^2}{\sigma^2}}
-  \right|
-  < \varepsilon.
-\end{equation*}
-Розв'яжемо цю нерівність відносно дисперсії шуму
-\begin{equation*}
-  \frac{\sum\limits_{i = 1}^n x_i^2}{\varepsilon \cdot w \cdot h}
-  < \left| \ln\sigma^2
-    + \frac{\sum\limits_{i \in I} y_i^2}
-           {\sigma^2 \cdot w \cdot h}
-   \right|.
-\end{equation*}
-Права частина містить суму, яка дорівнює оцінці дисперсії
-діленій на реальну дисперсію шуму.
-Вважаємо, що зображення має достатньо пікселів,
-щоб сума була приблизно рівною одиниці
-\begin{equation*}
-  \frac{\sum\limits_{i = 1}^n x_i^2}{\varepsilon \cdot w \cdot h}
-  < \left| \ln\sigma^2 + 1 \right|.
-\end{equation*}
-Потрібно позбутися модуля.
-Якщо $\ln\sigma^2 + 1 > 0$, то
-\begin{equation*}
-  \sigma^2 > e^{-1} \approx 0.37.
-\end{equation*}
-Це завеликий шум, який сильно спотворить зображення,
-тому не будемо розглядати цей випадок.
-Отримали нерівність
-\begin{equation*}
-  - \frac{\sum\limits_{i = 1}^n x_i^2}{\varepsilon \cdot w \cdot h} - 1
-  > \ln\sigma^2.
-\end{equation*}
-Візьмемо експоненту від обох частин
-\begin{equation*}
-  \sigma^2
-  < \exp{\left\{
-      - \frac{\sum\limits_{i = 1}^n x_i^2}
-             {\varepsilon \cdot w \cdot h}
-      - 1
-    \right\}}.
-\end{equation*}
-Перепишемо суму квадратів параметрів моделі як їх середнє помножене на кількість
-\begin{equation*}
-  \sigma^2
-  < \exp{\left\{
-      - \frac{\left\| x \right\|^2}
-             {\varepsilon \cdot w \cdot h}
-      - 1
-    \right\}}.
-\end{equation*}
-Якщо в нерівність підставити максимально можливе значення для
-$\left\| x \right\|^2$,
-отримаємо більш жорсткі обмеження на дисперсію шуму.
-Такий прийом лише збільшить точність результату.
-\begin{equation*}
-  \sigma^2
-  < \exp{\left\{
-      - \frac{n \cdot x_{max}^2}
-             {\varepsilon \cdot w \cdot h}
-      - 1
-    \right\}}.
-\end{equation*}
-Нехай $\varepsilon$ лінійно залежить від максимально можливого значення
-параметрів $x$.
-Тоді
-\begin{equation*}
-  \sigma^2
-  < \exp{\left\{
-      - \frac{n}{\varepsilon' \cdot w \cdot h}
-      - 1
-    \right\}},
-    \qquad \varepsilon = \varepsilon' \cdot x_{max}^2.
-\end{equation*}
-Параметри $x$ мають стандартний нормальний розподіл,
-отже за правилом трьох сігма не варто брати значення,
-що за модулем перевищують 3.
-Поріг $\varepsilon$ достатньо взяти $0.1$ ---
-це буде означати, що доданком,
-який вдесятеро менший за інший доданок,
-можна знехтувати.
-Тоді $\varepsilon' \approx 0.01$.
-
-Якщо вважати шум з дисперсією $e^{-1.2} \approx 0.3$ завеликим
-(таким, що не зустрінеться на реальних зображеннях),
-отримаємо залежність максимальної кількості параметрів
-від розміру зображення
-\begin{equation}\label{eq:negligible_x}
-  n
-  < 0.2 \cdot \varepsilon' \cdot w \cdot h
-  \le \frac{w \cdot h}{500}
-  \qquad \varepsilon' \le 0.01.
-\end{equation}
-Тоді буде виконуватись умова
-\begin{equation*}
-  \sigma^2 < e^{-1.2}.
-\end{equation*}
-
-Повернемося до \eqref{eq:minimize}та замінимо дисперсію її оцінкою
+Замінимо дисперсію її оцінкою
 \cite{BorovkovMS}
 \begin{equation*}
   \left| I \right|
@@ -295,24 +188,7 @@ $\left\| x \right\|^2$,
 на обличчі буде тим точнішою оцінкою дисперсії шуму,
 чим більше місця займає обличчя на зображенні.
 
-Знехтуємо ймовірністю параметрів $x$
-\begin{equation*}
-  \widetilde{y}^2 \to \min\limits_{x \in X}.
-\end{equation*}
-Помножимо на $\left( w \cdot h - 1 \right)$.
-Отримали мінімізацію відомої цільової функції --- суми квадратів відхилень
-\begin{equation*}
-  \sum_{i \in I} y_i^2
-  = \sum_{i \in I} \left( t_i - f_i\left( x \right) \right)^2
-  \to \min\limits_{x \in X}.
-\end{equation*}
-Мінімізація суми квадратів різниць між дійсним та згенерованим зображенням
-розв'язує задачу з бінарною або інтервальною функцією штрафу
-та гаусовим шумом на зображенні без додаткових умов
-на кшталт розподілу параметрів $x$.
-Проте це знехтування доцільне при виконанні умов \eqref{eq:negligible_x}.
-
-Продивимось знову отримані формули і їх особливості.
+Продивимось на отримані формули і їх особливості.
 
 Без додаткових припущень маємо
 \begin{equation*}
@@ -340,16 +216,6 @@ $\left\| x \right\|^2$,
   \cdot \ln{\widetilde{y}^2}
   + \left| L \right|
   \cdot \ln{\left[ \widetilde{\Delta}^2\left( x \right) \right]}
-  + \left( n - 1 \right) \cdot \widetilde{x}^2
-  \to \min\limits_{x \in X}.
-\end{equation*}
-
-Користуючись тим припущенням,
-що оцінка дисперсії приблизно дорівнює реальній,
-повернули логарифм дисперсії в формулу,
-адже вона вже не константа, а замінена оцінкою, та отримали
-\begin{equation*}
-  w \cdot h \cdot \ln{\widetilde{y}^2}
   + \left( n - 1 \right) \cdot \widetilde{x}^2
   \to \min\limits_{x \in X}.
 \end{equation*}
