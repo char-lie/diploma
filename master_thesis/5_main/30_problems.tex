@@ -146,24 +146,32 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
   i \in I.
 \end{equation*}
 
-Вважаємо, що опорні точки моделі проецюються на множину пікселів
-з певною похибкою.
-Ця похибка зумовлена такими факторами,
-як дискретність координат зображення та неточністю співставлення моделей
+Замість реального положення опорних точок $\theta^L$
+будемо розглядати її оцінку $\hat{\theta}^L$,
+яка отримана з похибкою,
+що має центрований гаусовий розподіл
+з дисперсією $\sigma^2_L$
 \begin{equation*}
-  P^2_{\theta_M}\left( m_l \right) = \theta_L^t\left( l \right) + \zeta_l,
+  \hat{\theta}^L = \theta_t^L\left( l \right) + \zeta_l,
   \qquad \zeta_l \sim \mathcal{N}\left( 0, \sigma_L^2 \right).
 \end{equation*}
 
+Позначимо відхилення проекції опорних точок моделі
+від їх оцінки
+\begin{align*}
+  \Delta\left( x \right)
+  = P^2_{\theta^M}\left( G_L\left( x \right) \right) - \hat{\theta}^L.
+\end{align*}
+
 Ймовірність того,
 що буде пред'явлено зображення $t$ з параметрами $x$
-при відомих перетвореннях $\theta_M$
-і положенням опорних точок $\theta_L$, є сумісною ймовірністю
+при відомих перетвореннях $\theta^M$
+і оцінці положеннь опорних точок $\hat{\theta}^L$, є сумісною ймовірністю
 \begin{equation*}
   p_{\theta}
   = \mathbb{P}_{\theta}\left\{
-    f_{\theta_M}\left( \xi \right) + \eta = t,
-    \zeta = P^2_{\theta_M}\left( G_L\left( \xi \right) \right) - \theta_L,
+    f_{\theta^M}\left( \xi \right) + \eta = t,
+    \zeta = \Delta\left( \xi \right),
     \xi = x
   \right\}.
 \end{equation*}
@@ -171,8 +179,8 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 \begin{equation*}
   p_{\theta}
   = \mathbb{P}_{\theta}\left\{
-      f_{\theta_M}\left( \xi \right) + \eta = t,
-      P^2_{\theta_M}\left( G_L\left( \xi \right) \right) - \zeta = \theta_L
+      f_{\theta^M}\left( \xi \right) + \eta = t,
+      \zeta = \Delta\left( \xi \right)
       \;\middle|\; \xi = x \right\}
     \cdot \mathbb{P}\left( \xi = x \right)
 \end{equation*}
@@ -181,9 +189,9 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 бо ці події не залежать одна від одної
 \begin{equation*}
   p_{\theta}
-  = \mathbb{P}_{\theta_M}\left( \eta = t - f_{\theta_M}\left( x \right) \right)
+  = \mathbb{P}_{\theta^M}\left( \eta = t - f_{\theta^M}\left( x \right) \right)
     \cdot \mathbb{P}_{\theta}\left\{
-      \zeta = P^2_{\theta_M}\left( G_L\left( x \right) \right) - \theta_L
+      \zeta = \Delta\left( x \right)
     \right\}
     \cdot \mathbb{P}\left( \xi = x \right).
 \end{equation*}
