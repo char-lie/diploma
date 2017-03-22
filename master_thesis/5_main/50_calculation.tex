@@ -14,7 +14,7 @@
     \cdot \int\limits_{x \in X}
       x
       \cdot \exp{\left\{ - \frac{\left\| t - f\left( x \right) \right\|^2}
-                                {2 \cdot \sigma^2} \right\}}
+                                {2 \cdot \sigma^2_t}\right\}}
       \cdot \exp{\left\{ - \frac{\left\| x \right\|^2}{2} \right\}}
     d\,x,
 \end{equation*}
@@ -27,7 +27,7 @@
       \xi
       \cdot \exp{\left\{
           - \frac{\left\| t - f\left( \xi \right) \right\|^2}
-                 {2 \cdot \sigma^2}
+                 {2 \cdot \sigma^2_t}
             \right\}}}, \qquad
     \xi_i \sim \mathcal{N}\left( 0, 1 \right).
 \end{equation*}
@@ -38,7 +38,7 @@
     \frac{\xi}{\left| \xi \right|}
     \cdot \exp{\left\{
         \ln{\left| \xi \right|}
-        - \frac{\left\| t - f\left( \xi \right) \right\|^2}{2 \cdot \sigma^2}
+        - \frac{\left\| t - f\left( \xi \right) \right\|^2}{2 \cdot \sigma^2_t}
         + \ln{c_t}
        \right\}
     }}.
@@ -60,7 +60,7 @@
   \cdot \exp{\left\{
       \ln{\left| \xi^{\left( i \right)} \right|}
       - \frac{\left\| t - f\left( \xi^{\left( i \right)} \right) \right\|^2}
-             {2 \cdot \sigma^2}
+             {2 \cdot \sigma^2_t}
       + \ln{c_t}
      \right\}
    }.
@@ -71,7 +71,7 @@
   \sum_{i=1}^{N}
     \exp{\left\{
       \frac{\left\| t - f\left( \xi^{\left( i \right)} \right) \right\|^2}
-           {2 \cdot \sigma^2}
+           {2 \cdot \sigma^2_t}
        + \frac{\left\| \xi^{\left( i \right)} \right\|^2}{2}
      \right\}}
   = 1.
@@ -82,7 +82,7 @@
   = \frac{1}{\sum\limits_{i=1}^{N}
     \exp{\left\{
       \frac{\left\| t - f\left( \xi^{\left( i \right)} \right) \right\|^2}
-           {2 \cdot \sigma^2}
+           {2 \cdot \sigma^2_t}
       + \frac{\left\| \xi^{\left( i \right)} \right\|^2}{2}
     \right\}}}.
 \end{equation*}
