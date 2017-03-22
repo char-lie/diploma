@@ -133,16 +133,14 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 
 Вважаємо,
 що на вхідне зображення накладено шум $\eta$,
-що є вектором незалежних випадкових величин
+що є вектором незалежних випадкових величин,
 розподілених за центрованим нормальним законом
-та однаковою невідомою дисперсією $\sigma^2$
-\begin{equation*}
-  t = f\left( x \right) + \eta.
-\end{equation*}
+з однаковою невідомою дисперсією $\sigma_t^2$.
 Інтенсивність $i$ пікселя
 \begin{equation*}
-  t_i = f_i\left( x \right) + \eta_i,\qquad
-  \eta_i \sim \mathcal{N}\left( 0, \sigma^2 \right), \qquad
+  t_i = f_i\left( x \right) \cdot \overline{h}_i\left( x \right)
+    + \theta_i^B \cdot h_i\left( x \right) + \eta_i,\qquad
+  \eta_i \sim \mathcal{N}\left( 0, \sigma^2_t\right), \qquad
   i \in I.
 \end{equation*}
 
