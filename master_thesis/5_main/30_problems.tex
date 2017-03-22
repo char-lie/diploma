@@ -201,6 +201,68 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
   \mathbb{P}\left( t, x \right) = p_{\theta}.
 \end{align*}
 
+\subsection{Узагальнення на випадок кількох зображень}
+
+Пред'явлено кілька зображень
+\begin{equation*}
+  \vec{t} = \left\langle t_1, t_2, \dots, t_m \right\rangle,
+\end{equation*}
+на яких знаходиться обличчя однієї й тієї ж самої людини.
+Для спрощення вважаємо,
+що форма обличчя (і колір шкіри, якщо потрібно)
+на всіх зображеннях однаковий, тобто $x = const \in X$.
+Цього важко досягти,
+якщо обрати фотографії зняті з різних камер в різні пори року,
+проте ця вимога має місце,
+коли на вході дано відео, фотографії з однієї фотосесії,
+фотографії зроблені в один момент з різних ракурсів,
+або розрізане зображення, де людину видно у рівних чистих дзеркалах.
+Для різних зображень $t^j$ буде відрізнятися
+шум $\eta^j$ та параметри зйомки $\theta^j$.
+
+Набір зображень генерується стохастичним автоматом \cite{Rabin:1963}
+\begin{equation*}
+  \mathfrak{U}_x = \left\langle
+    \Theta \times T \times X
+      \cup \left\{ \varepsilon_0, \varepsilon \right\}, p, \varepsilon_0,
+    \left\{ \varepsilon \right\}
+  \right\rangle,
+\end{equation*}
+де $\varepsilon_0$ --- початковий стан, який не містить ніякої інформації,
+а $\varepsilon$ --- кінцевий стан.
+Функція $p$ визначає ймовірність того,
+що наступним набором параметрів буде $\theta_j$
+та згенерується зображення $t_j$.
+Якщо зображення не залежать одне від одного
+(рис. \ref{fig:solutions:tree-images}),
+маємо ймовірності станів,
+що не залежать один від одного
+\begin{equation*}
+  \mathbb{P}_j\left( \theta^j, t_j, x \right)
+  = p\left( \theta^j, t_j \right).
+\end{equation*}
+У випадку відео (рис. \ref{fig:solutions:tree-video})
+ймовірноість генерації наступних параметрів та зображення
+залежить від поточного стану автомата
+\begin{equation*}
+  \mathbb{P}_j\left( \theta^j, t_j, x \right)
+  = p_j\left( \theta^j, t_j \; \mid \; \theta^{j-1} \right).
+\end{equation*}
+
+\begin{figure}[h]
+  \centering
+  \includestandalone[mode=buildnew]{../tikz/5_40_images_tree}
+  \caption{Приклад роботи автомата з незалежними станами}
+  \label{fig:solutions:tree-images}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includestandalone[mode=buildnew]{../tikz/5_40_video_tree}
+  \caption{Приклад автомата, що генерує відео}
+  \label{fig:solutions:tree-video}
+\end{figure}
+
 \subsection{Баєсова задача розпізнавання}
 
 Поставимо Баєсову задачу розпізнавання.
