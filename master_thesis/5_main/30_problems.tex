@@ -219,11 +219,11 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 \end{equation*}
 Стратегію $q \in Q$
 \begin{equation*}
-  q: \Theta \times T \rightarrow X,
+  q: T \rightarrow X,
 \end{equation*}
-яка для зображення $t$ і набору $\theta$ дає результат $x$, позначимо
+яка для зображення $t$ дає результат $x$, позначимо
 \begin{equation*}
-  q_{\theta}\left( t \right) = x.
+  q\left( t \right) = x.
 \end{equation*}
 Математичне очікування функції витрат $W$
 як функції випадкової пари $\left\langle t, x \right\rangle$
@@ -232,9 +232,9 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 \begin{equation*}
   R_{\theta} \left( q \right)
   = \sum\limits_{t \in T} \int\limits_{X}
-    W \left( x, q_{\theta}\left( t \right) \right)
+    W \left( x, q\left( t \right) \right)
     d F_{\theta}\left( t, x \right)
-    = \Meanof{\theta}{W\left( x, q_{\theta}\left( t \right) \right)},
+    = \Meanof{\theta}{W\left( x, q\left( t \right) \right)},
 \end{equation*}
 де $F_{\theta}$ --- функція сумісного розподілу зображення
 та параметрів зображеної моделі при відомих $\theta$.
@@ -316,7 +316,7 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
   R_{\theta}\left( q \right)
   = \sum\limits_{t \in T}
     \int\limits_{x \in X}
-    \mathbbm{1} \left( x \neq q_{\theta}\left( t \right) \right)
+    \mathbbm{1} \left( x \neq q\left( t \right) \right)
     \cdot p\left( t, x \right) d\; x
   = 1,\qquad
   \forall q \in Q.
