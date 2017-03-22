@@ -30,20 +30,20 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 з множини $X = \mathbb{R}^n$.
 Є додаткові параметри, що відіграють важливу роль при візуалізації,
 проте не потрібні в результаті --- поворот, масштаб, перспектива тощо.
-Введемо відображення $\theta_M \in \Theta_M$,
+Введемо відображення $\theta^M \in \Theta^M$,
 що застосовує необхідні перетворення до точки в тривимірному просторі
 \begin{equation*}
-  \theta_M: \mathbb{R}^3 \rightarrow \mathbb{R}^3.
+  \theta^M: \mathbb{R}^3 \rightarrow \mathbb{R}^3.
 \end{equation*}
 Функцією, що перетворює набір параметрів на зображення, є відображення
 \begin{equation*}
-  f: \Theta_M \times X \rightarrow T.
+  f: \Theta^M \times X \rightarrow T.
 \end{equation*}
-Зображення $t$, згенероване з параметрами $\theta_M$ та $x$, позначатимемо
+Зображення $t$, згенероване з параметрами $\theta^M$ та $x$, позначатимемо
 \begin{equation*}
-  f_{\theta_M} \left( x \right) = t.
+  f_{\theta^M} \left( x \right) = t.
 \end{equation*}
-В подальших записах індекс $\theta_M$ записувати не будемо,
+В подальших записах індекс $\theta^M$ записувати не будемо,
 коли з контексту буде зрозуміло, які перетворення застосовуються до моделі.
 
 Для подальших обчислень введемо функцію $h$ (hidden),
@@ -75,30 +75,30 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
   m_{l} = u.
 \end{equation*}
 Відображення тривимірної точки,
-до якої застосовано перетворення $\theta_M$,
+до якої застосовано перетворення $\theta^M$,
 \begin{equation*}
-  P_2: \Theta_M \times \mathbb{R}^3 \rightarrow I.
+  P_2: \Theta^M \times \mathbb{R}^3 \rightarrow I.
 \end{equation*}
 Проекцію $p$ точки $v$ моделі $m$ на площину запишемо
 \begin{equation*}
-  P^2_{\theta_M}\left( m_v \right) = p.
+  P^2_{\theta^M}\left( m_v \right) = p.
 \end{equation*}
-Також, коли з контексту зрозуміло значення $\theta_M$,
+Також, коли з контексту зрозуміло значення $\theta^M$,
 позначатимемо без нижнього індексу
 \begin{equation*}
   P^2\left( m_v \right) = p.
 \end{equation*}
-Введемо відображення $\theta_L$,
+Введемо відображення $\theta^L$,
 що для певної опорної точки $l$
 дає координати цієї точки на даному зображенні $t$
 \begin{equation*}
-  \theta_L: T \times L \rightarrow I.
+  \theta^L: L \times T \rightarrow I.
 \end{equation*}
 Координати опорної точки $l$ на зображенні $t$ позначимо
 \begin{equation*}
-  \theta_L^t\left( l \right) = i.
+  \theta_l^L\left( t \right) = i.
 \end{equation*}
-Верхній індекс використовувати не будемо, коли з контексту буде зрозуміло,
+Аргумент використовувати не будемо, коли з контексту буде зрозуміло,
 про яке зображення йде мова.
 
 Потрібна метрика,
