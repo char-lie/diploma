@@ -316,45 +316,7 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 що при будь-якому значенні параметрів $\theta$
 небаєсова стратегія буде розпізнавати гірше за певну баєсову.
 
-Задача --- знайти таке вирішальне правило $q$,
-за якого Баєсів ризик $R_{\theta}\left( q \right)$ мінімальний
-для даної функції штрафу $W$ при тих параметрах $\theta$,
-що дають найбільший ризик \cite{schlesinger:2002}
-\begin{equation*}
-  q^* = \argmin_{q \in Q}
-        \max\limits_{\theta \in \Theta} R_{\theta}\left( q \right).
-\end{equation*}
-
-Оскільки зображення $t$ не залежать одне від одного,
-мінімізація і максимізація суми
-еквівалентна мінімізації і максимізації кожного її елементу
-\begin{equation*}
-  q^*\left( t \right)
-  = \argmin_{x' \in X} \max\limits_{\theta \in \Theta}
-    \int\limits_{X}
-    W \left( x, x' \right)
-    d F_{\theta}\left( t, x \right).
-\end{equation*}
-Можна переписати через умовне математичне очікування
-\begin{equation*}
-  q^*\left( t \right)
-  = \argmin_{x' \in X} \max\limits_{\theta \in \Theta}
-    \Meanof{\theta}{W\left( x, x' \right) \mcond t }
-    \cdot \mathbb{P}\left( t \right).
-\end{equation*}
-Константний множник не впливає на розв'язок
-\begin{equation*}
-  q^*\left( t \right)
-  = \argmin_{x' \in X} \max\limits_{\theta \in \Theta}
-    \Meanof{\theta}{W\left( x, x' \right) \mcond t}.
-\end{equation*}
-
-Далі зафіксуємо параметр $\theta$.
-Метою цієї дії буде проведення базових математичних обчислень,
-що потім будуть використовуватися.
-Також це допоможе аналізу існуючих рішень.
-Після цих обчислень буде розглянуто,
-як саме враховувати вплив невідомих параметрів на розв'язок.
+Далі зафіксуємо параметр $\theta$, ніби він відомий.
 
 \subsection{Бінарна функція витрат}
 
