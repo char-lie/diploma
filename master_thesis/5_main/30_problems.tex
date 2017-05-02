@@ -329,8 +329,39 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
   q^{\theta}\left( t \right)
   = \argmin\limits_{q \in Q} R_{\theta}\left( q \right).
 \end{equation*}
+Можемо сформулювати оптимізаційну задачу з обмеженнями
+\begin{equation}\label{eq:problem:bayesian:suboptimal}
+  \begin{cases}
+    c \to \min, \\
+    \sum\limits_{\theta \in \Theta} \tau\left( \theta \right) = 1, \\
+    \tau\left( \theta \right) \ge 0, \qquad \forall \theta \in \Theta, \\
+    q = \argmin\limits_{q \in Q} \sum\limits_{\theta \in \Theta}
+      \tau\left( \theta \right) \cdot R_{\theta}\left( q \right), \\
+    \tau\left( \theta \right) \cdot R_{\theta}\left( q \right)
+      - R_{\theta}\left( q^{\theta} \right) < c,
+    \qquad \forall \theta \in \Theta.
+  \end{cases}
+\end{equation}
+В результаті розв'язку отримаємо ваги $\tau\left( \theta \right)$
+і стратегію $q$, яка не є негодящою.
+Цей факт доводиться досить просто:
+якщо знайдеться інша стратегія $q'$, яка краща за дану $q$,
+то знайдеться таке невід'ємне $\delta$, що
+\begin{equation*}
+  \tau\left( \theta \right) \cdot R_{\theta}\left( q' \right)
+    - R_{\theta}\left( q^{\theta} \right) < c - \delta,
+  \qquad \forall \theta \in \Theta.
+\end{equation*}
+Якщо таке $\delta > 0$ існує, то $c$ можна зменшити на $\delta$
+і оптимізаційну задачу \eqref{eq:problem:bayesian:suboptimal}
+не було розв'язано до кінця.
+Проте $\delta$ може бути наперед визначеною точністю обчислень,
+якою можна поступитися на користь швидкості розв'язку.
+Стратегія, що є розв'язком \eqref{eq:problem:bayesian:suboptimal},
+називається субоптимальною.
 
-Далі зафіксуємо параметр $\theta$, ніби він відомий.
+Далі зафіксуємо параметр $\theta$, ніби він відомий,
+і розглянемо побудову оптимальних стратегій для різних штрафних функцій.
 
 \subsection{Бінарна функція витрат}
 
