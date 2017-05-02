@@ -34,7 +34,11 @@ $\left[ x - \frac{\delta x}{2}; x + \frac{\delta x}{2} \right]$,
 
 Введемо зручне позначення для шуму в пікселі $i$
 \begin{equation*}
-  y_i = t_i - f_i\left( x \right).
+  y_i
+  = t_i
+    - f_i\left( x \right) \cdot \overline{h}_i\left( x \right)
+    - \theta_i^B \cdot h_i\left( x \right),\qquad
+    i \in I.
 \end{equation*}
 Розглядається одне зображення $t$.
 З контексту буде зрозуміло, яке значення має $x$.
