@@ -297,7 +297,8 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 \begin{equation*}
   p_{\theta}
   = \mathbb{P}_{\theta}\left\{
-    f_{\theta^M}\left( \xi \right) + \eta = t,
+    f_{\theta^M}\left( \xi \right) \cdot \overline{h}\left( x \right)
+      + \theta^B \cdot h\left( x \right) + \eta = t,
     \zeta = \Delta\left( \xi \right),
     \xi = x
   \right\}.
@@ -306,7 +307,8 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 \begin{equation*}
   p_{\theta}
   = \mathbb{P}_{\theta}\left\{
-      f_{\theta^M}\left( \xi \right) + \eta = t,
+      f_{\theta^M}\left( \xi \right) \cdot \overline{h}\left( x \right)
+        + \theta^B \cdot h\left( x \right) + \eta = t,
       \zeta = \Delta\left( \xi \right)
       \;\middle|\; \xi = x \right\}
     \cdot \mathbb{P}\left\{ \xi = x \right\}
@@ -317,7 +319,9 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
 \begin{equation*}
   p_{\theta}
   = \mathbb{P}_{\theta^M}\left\{
-      \eta = t - f_{\theta^M}\left( x \right) \right\}
+      \eta = t
+             - f_{\theta^M}\left( x \right) \cdot \overline{h}\left( x \right)
+             - \theta^B \cdot h\left( x \right) \right\}
     \cdot \mathbb{P}_{\theta}\left\{
       \zeta = \Delta\left( x \right)
     \right\}
