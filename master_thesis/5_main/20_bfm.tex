@@ -310,18 +310,19 @@ $2^{8 \cdot 10^4} \approx 10^{24 \cdot 10^3}$
       f_{\theta^M}\left( \xi \right) + \eta = t,
       \zeta = \Delta\left( \xi \right)
       \;\middle|\; \xi = x \right\}
-    \cdot \mathbb{P}\left( \xi = x \right)
+    \cdot \mathbb{P}\left\{ \xi = x \right\}
 \end{equation*}
 Позбавимося умовної ймовірності, замінивши $\xi$ на $x$
 і розіб'ємо першу ймовірність на добуток двох ймовірностей,
 вважаючи, що похибка оцінки опорних точок не залежить від шуму на зображенні
 \begin{equation*}
   p_{\theta}
-  = \mathbb{P}_{\theta^M}\left( \eta = t - f_{\theta^M}\left( x \right) \right)
+  = \mathbb{P}_{\theta^M}\left\{
+      \eta = t - f_{\theta^M}\left( x \right) \right\}
     \cdot \mathbb{P}_{\theta}\left\{
       \zeta = \Delta\left( x \right)
     \right\}
-    \cdot \mathbb{P}\left( \xi = x \right).
+    \cdot \mathbb{P}\left\{ \xi = x \right\}.
 \end{equation*}
 
 Далі будемо позначати сумісну ймовірність без $\theta$,
