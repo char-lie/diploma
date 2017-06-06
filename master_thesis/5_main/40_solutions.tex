@@ -45,14 +45,14 @@ $\left[ x - \frac{\delta x}{2}; x + \frac{\delta x}{2} \right]$,
 Ймовірність того, що обличчя на даному зображенні отримано з параметрами $x$
 \begin{equation*}
   \mathbb{P}_Y\left( t \;\middle|\; x \right)
-  = \delta x^{w \cdot h} \cdot \prod_{i \in I}
+  = \delta x^{\left| I \right|} \cdot \prod_{i \in I}
     \frac{\exp{\left\{- \frac{y_i^2}
            {2 \cdot \sigma^2_t} \right\}}}
            {\sqrt{2 \cdot \pi \cdot \sigma^2_t}}.
 \end{equation*}
 
 Ймовірність того, що параметри $x$ приймають саме такі значення,
-якщо відомі координати опорних точок,
+якщо відома оцінка координат опорних точок,
 \begin{equation*}
   \mathbb{P}_L\left( x \right)
   = \delta x^{\left| L \right|} \cdot \prod_{l \in L}
@@ -89,7 +89,7 @@ $\left[ x - \frac{\delta x}{2}; x + \frac{\delta x}{2} \right]$,
           - \frac{\ln{2} + \ln{\pi}}{2}
         \right\}, \\
     \mathbb{P}_Y\left( t \;\middle|\; x \right)
-    &= \ln{\delta x^{w \cdot h}} +
+    &= \ln{\delta x^{\left| I \right|}} +
         \sum_{i \in I}
         \left\{
           - \frac{y_i^2}{2 \cdot \sigma^2_t}
@@ -257,7 +257,7 @@ $\left[ x - \frac{\delta x}{2}; x + \frac{\delta x}{2} \right]$,
 У даному підрозділі не будемо враховувати опорні точки,
 щоб запобігти завеликих формул.
 Проте отриманий результат не втрачає гнучкості
-і до нього без проблем можна додати $P_L$.
+і до нього без проблем можна додати ймовірність $P_L$.
 
 Ймовірність того,
 що дане зображення $t$ було отримано саме з параметрами $x$,
@@ -266,8 +266,8 @@ $\left[ x - \frac{\delta x}{2}; x + \frac{\delta x}{2} \right]$,
   \mathbb{P}\left( x, t \right)
   = \mathbb{P}_I\left( t \mcond x \right)
     \cdot \mathbb{P}_X\left( x \right)
-  = \delta x^{n + w \cdot h} \cdot \prod_{i \in I}
-  \frac{\exp{\left\{ - \frac{\left( t_i - f_i\left( x \right) \right)^2}
+  = \delta x^{n + \left| I \right|} \cdot \prod_{i \in I}
+  \frac{\exp{\left\{ - \frac{y_i^2}
        {2 \cdot \sigma_t^2} \right\}}}{\sqrt{2 \cdot \pi \cdot \sigma_t^2}}
   \cdot
   \prod_{i=1}^n
@@ -276,9 +276,9 @@ $\left[ x - \frac{\delta x}{2}; x + \frac{\delta x}{2} \right]$,
 Винесемо константи з добутків
 \begin{equation*}
   \mathbb{P}\left( x, t \right)
-  = \left( \frac{\delta x}{\sqrt{2 \cdot \pi}} \right)^{n + w \cdot h}
+  = \left( \frac{\delta x}{\sqrt{2 \cdot \pi}} \right)^{n + \left| I \right|}
     \cdot \prod_{i \in I}
-    \frac{\exp{\left\{ - \frac{\left( t_i - f_i\left( x \right) \right)^2}
+    \frac{\exp{\left\{ - \frac{y_i^2}
          {2 \cdot \sigma_t^2} \right\}}}{\sqrt{\sigma_t^2}}
     \cdot
     \prod_{i=1}^n
@@ -292,34 +292,31 @@ $\left[ x - \frac{\delta x}{2}; x + \frac{\delta x}{2} \right]$,
 Введемо константу
 \begin{equation*}
   c_t = \frac{
-      \left( 2 \cdot \pi \right)^{- \frac{n + w \cdot h}{2}}
-      \cdot \left( \sigma_t^2 \right)^{- \frac{w \cdot h}{2}}
+      \left( 2 \cdot \pi \right)^{- \frac{n + \left| I \right|}{2}}
+      \cdot \left( \sigma_t^2 \right)^{- \frac{\left| I \right|}{2}}
     }{\mathbb{P}\left( t \right)}
 \end{equation*}
 Ймовірність певного набору параметрів $x$ на даному зображенні $t$
 \begin{equation*}
   \mathbb{P}\left( x \mcond t \right)
-  = c_t \cdot \delta x^{n + w \cdot h}
-    \cdot \exp{\left\{ - \frac{\left\| t - f\left( x \right) \right\|^2}
-                              {2 \cdot \sigma_t^2} \right\}}
+  = c_t \cdot \delta x^{n + \left| I \right|}
+    \cdot \exp{\left\{ - \frac{y_i^2}{2 \cdot \sigma_t^2} \right\}}
     \cdot \exp{\left\{ - \frac{\left\| x \right\|^2}{2} \right\}}.
 \end{equation*}
 Стратегія розпізнавання
 \begin{equation*}
   q^*_{\theta}\left( t \right)
-  = c_t \cdot \delta x^{n + w \cdot h}
+  = c_t \cdot \delta x^{n + \left| I \right|}
     \cdot \sum_{x \in X}
       x
-      \cdot \exp{\left\{ - \frac{\left\| t - f\left( x \right) \right\|^2}
-                                {2 \cdot \sigma_t^2} \right\}}
+      \cdot \exp{\left\{ - \frac{y_i^2}{2 \cdot \sigma_t^2} \right\}}
       \cdot \exp{\left\{ - \frac{\left\| x \right\|^2}{2} \right\}}.
 \end{equation*}
 Щільність розподілу набору параметрів $x$ на даному зображенні $t$
 \begin{equation*}
   p\left( x \mcond t \right)
   = c_t
-    \cdot \exp{\left\{ - \frac{\left\| t - f\left( x \right) \right\|^2}
-                              {2 \cdot \sigma_t^2} \right\}}
+    \cdot \exp{\left\{ - \frac{y_i^2}{2 \cdot \sigma_t^2} \right\}}
     \cdot \exp{\left\{ - \frac{\left\| x \right\|^2}{2} \right\}}.
 \end{equation*}
 Стратегія розпізнавання у неперервному випадку
@@ -328,8 +325,7 @@ $\left[ x - \frac{\delta x}{2}; x + \frac{\delta x}{2} \right]$,
   = c_t
     \cdot \int\limits_{x \in X}
       x
-      \cdot \exp{\left\{ - \frac{\left\| t - f\left( x \right) \right\|^2}
-                                {2 \cdot \sigma_t^2} \right\}}
+      \cdot \exp{\left\{ - \frac{y_i^2}{2 \cdot \sigma_t^2} \right\}}
       \cdot \exp{\left\{ - \frac{\left\| x \right\|^2}{2} \right\}}
     d\,x.
 \end{equation*}
@@ -406,4 +402,5 @@ $\left[ x - \frac{\delta x}{2}; x + \frac{\delta x}{2} \right]$,
 проте використаний для знаходження особливих точок алгоритм
 зазвичай демонструється з набором із $194$ опорних точок,
 які було запропоновано у базі PUT Face \cite{put-face:2008}.
-В такому випадку дисперсія дорівнює $4.85 \cdot 10^{-4}$.
+В такому випадку дисперсія дорівнює $4.85 \cdot 10^{-4}$,
+тобто вважається, що оцінка положення точок ідеальна.
