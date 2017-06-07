@@ -3,6 +3,21 @@
 \input{config.tex}
 
 \usetikzlibrary{shapes.arrows,chains}
+\usepackage{xassoccnt}
+\usepackage{lastpage}
+\NewTotalDocumentCounter{totalfigures}
+\NewTotalDocumentCounter{totaltables}
+\NewTotalDocumentCounter{appendixchapters}
+\NewTotalDocumentCounter{totalbibitems}
+\DeclareAssociatedCounters{figure}{totalfigures}
+\DeclareAssociatedCounters{table}{totaltables}
+\DeclareAssociatedCounters{bibcite}{totalbibitems}
+
+\usepackage{totcount}
+\newtotcounter{citenum}
+\def\oldcite{}
+\let\oldcite=\bibcite
+\def\bibcite{\stepcounter{citenum}\oldcite}
 
 \begin{document}
 
