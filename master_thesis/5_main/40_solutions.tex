@@ -131,89 +131,33 @@ $\left[ x - \frac{\delta x}{2}; x + \frac{\delta x}{2} \right]$,
   + \sum_{i = 1}^n x_i^2
   \to \min\limits_{x \in X}.
 \end{equation}
-Замінимо дисперсію її оцінкою
-\cite{BorovkovMS}
-\begin{equation*}
-  \left| I \right|
-  \cdot \ln{
-    \frac{\sum\limits_{i \in I} y_i^2}
-         {\left| I \right| - 1}}
-  + \left| I \right| - 1
-  + \left| L \right|
-  \cdot \ln{
-    \frac{\sum\limits_{l \in L} \Delta_l^2\left( x \right)}
-         {\left| L \right| - 1}}
-  + \left| L \right| - 1
+Оскільки дисперсія є константним невідомим параметром,
+можна спростити
+\begin{equation}\label{eq:minimize}
+  \sum_{i \in I} \frac{y_i^2}{\sigma^2_t}
+  + \sum_{l \in L} \frac{\Delta_l^2\left( x \right)}{\sigma_L^2}
   + \sum_{i = 1}^n x_i^2
   \to \min\limits_{x \in X}.
-\end{equation*}
-Позбавимося константних доданків
-\begin{equation*}
-  \left| I \right|
-  \cdot \ln{
-    \frac{\sum\limits_{i \in I} y_i^2}
-         {\left| I \right| - 1}}
-  + \left| L \right|
-  \cdot \ln{
-    \frac{\sum\limits_{l \in L} \Delta_l^2\left( x \right)}
-         {\left| L \right| - 1}}
-  + \sum_{i = 1}^n x_i^2
-  \to \min\limits_{x \in X}.
-\end{equation*}
+\end{equation}
 В загальному випадку зображення містить не тільки обличчя.
 Генерація усіх можливих фонів для кожної моделі є недоцільною.
 Потрібно отримати формулу,
 яка не прив'язана до кожного пікселя вхідного зображення $t$.
-Для цього перепишемо доданки як середньоквадратичні відхилення
-\begin{equation*}
-  \left| I \right|
-  \cdot \ln{\widetilde{y}^2}
-  + \left| L \right|
-  \cdot \ln{\left[ \widetilde{\Delta}^2\left( x \right) \right]}
-  + \left( n - 1 \right) \cdot \widetilde{x}^2
-  \to \min\limits_{x \in X}.
-\end{equation*}
-Треба брати середньоквадратичне відхилення шуму по тим пікселям,
+Для цього треба брати середньоквадратичне відхилення шуму по тим пікселям,
 де на згенерованому зображенні $f\left( x \right)$ знаходиться обличчя.
 За умовою накладений шум є
 набором незалежних випадкових однаково розподілених величин,
 тому квадрат середньоквадратичного відхилення будь-якої їх сукупності
-буде оптимальною оцінкою їх дисперсії.
+буде оптимальною оцінкою їх дисперсії \cite{BorovkovMS}.
 Це означає, що квадрат середньоквадратичного відхилення шуму
 на обличчі буде тим точнішою оцінкою дисперсії шуму,
 чим більше місця займає обличчя на зображенні.
-
-Продивимось на отримані формули і їх особливості.
-
-Без додаткових припущень маємо
-\begin{equation*}
-  \left| I \right| \cdot \ln{\sigma^2_t}
-  + \left| L \right| \cdot \ln{\sigma_L^2}
-  + \sum_{i \in I} \frac{y_i^2}{\sigma^2_t}
-  + \sum_{l \in L} \frac{\Delta_l^2\left( x \right)}{\sigma_L^2}
-  + \sum_{i = 1}^n x_i^2
-  \to \min\limits_{x \in X}.
-\end{equation*}
-
-Оскільки дисперсія є константним невідомим параметром,
-можна спростити
 \begin{equation}\label{eq:energy:common}
   \sum_{i \in I} \frac{y_i^2}{\sigma^2_t}
   + \sum_{l \in L} \frac{\Delta_l^2\left( x \right)}{\sigma_L^2}
   + \sum_{i = 1}^n x_i^2
   \to \min\limits_{x \in X}.
 \end{equation}
-
-Якщо замість сум квадратів розглядати вибіркові дисперсії,
-щоб позбутися невідомих дисперсій, задача приймає вигляд
-\begin{equation*}
-  \left| I \right|
-  \cdot \ln{\widetilde{y}^2}
-  + \left| L \right|
-  \cdot \ln{\left[ \widetilde{\Delta}^2\left( x \right) \right]}
-  + \left( n - 1 \right) \cdot \widetilde{x}^2
-  \to \min\limits_{x \in X}.
-\end{equation*}
 
 Найпростіша цільова функція~---~сума квадратів відхилень
 між дійсним та синтезованим зображенням.
