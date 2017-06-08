@@ -384,29 +384,63 @@ $\left[ x - \frac{\delta x}{2}; x + \frac{\delta x}{2} \right]$,
 \begin{equation*}
   E\left( x^j \right) = E'\left( x^j \right) + E^B\left( x^j \right).
 \end{equation*}
-Різниця цільових функцій приймає вигляд
+Порівняння цільової функції на сусідніх кроках оптимізації приймає вигляд
 \begin{equation*}
-  E\left( x^j \right) - E\left( x^{j+1} \right)
-  = E'\left( x^j \right) - E'\left( x^{j+1} \right)
-    + E^B\left( x^j \right) - E^B\left( x^{j+1} \right)
-  < 0.
+  E'\left( x^j \right) + E^B\left( x^j \right)
+  > E'\left( x^{j+1} \right) + E^B\left( x^{j+1} \right).
 \end{equation*}
-Перенесемо різницю функцій, що містять фон, в праву частину нерівності
+Перенесемо функції, що містять фон, в праву частину нерівності,
+а відомі в ліву
+\begin{equation}\label{eq:energy:comparison}
+  E'\left( x^j \right) - E'\left( x^{j+1} \right)
+  > E^B\left( x^{j+1} \right) - E^B\left( x^j \right).
+\end{equation}
+Суми з правої сторони нерівності містять невідомі величини,
+проте за умовою фон на одному зображенні не змінюється,
+тому $\theta^B_i$ має одне й те саме значення на будь-якій ітерації.
+Оскільки
+\begin{equation*}
+  \left( I \setminus I_{j+1} \right) \cap \left( I \setminus I_j \right)
+  = \overline{I_{j+1}} \cap \overline{I_j}
+  = \overline{I_{j+1} \cup I_j}
+\end{equation*}
+і
+\begin{equation*}
+  \begin{cases}
+    \overline{I_{j+1}} \setminus \overline{I_{j+1} \cup I_j}
+    = \overline{I_{j+1}} \cap \left( I_{j+1} \cup I_j \right)
+    = I_{j} \setminus I_{j+1}, \\
+    \overline{I_{j}} \setminus \overline{I_{j+1} \cup I_j}
+    = \overline{I_{j}} \cap \left( I_{j+1} \cup I_j \right)
+    = I_{j+1} \setminus I_{j},
+  \end{cases}
+\end{equation*}
+маємо
+\begin{equation*}
+  E^B\left( x^{j+1} \right) - E^B\left( x^j \right)
+  = \sum_{i \in I_j \setminus I_{j+1}} \frac{\left\| \theta_i^B - t_i \right\|^2}{\sigma^2_t}
+    - \sum_{i \in I_{j+1} \setminus I_j} \frac{\left\| \theta_i^B - t_i \right\|^2}{\sigma^2_t}.
+\end{equation*}
+Нерівність \eqref{eq:energy:comparison} приймає вигляд
 \begin{equation*}
   E'\left( x^j \right) - E'\left( x^{j+1} \right)
-  < E^B\left( x^{j+1} \right) - E^B\left( x^j \right).
-  = \sum_{i \in I \setminus I_{j+1}} \frac{\left\| \theta_i^B - t_i \right\|^2}{\sigma^2_t}
-    - \sum_{i \in I \setminus I_j} \frac{\left\| \theta_i^B - t_i \right\|^2}{\sigma^2_t}.
+  > \sum_{i \in I_j \setminus I_{j+1}} \frac{\left\| \theta_i^B - t_i \right\|^2}{\sigma^2_t}
+    - \sum_{i \in I_{j+1} \setminus I_j} \frac{\left\| \theta_i^B - t_i \right\|^2}{\sigma^2_t}.
 \end{equation*}
-Оскільки шум за умовою ґаусовий,
-значення $E^B\left( x^j \right)$ є випадкова величина,
-яка має розподіл $\chi^2$ з $\left| I \setminus I_j \right|$
-ступенями вільності.
-Порівняння приймає стохастичний характер
+Згадаємо, що за умовою на зображення накладено
+центрований адитивний ґаусовий шум з дисперсією $\sigma^2_t$
+\begin{equation*}
+  E'\left( x^j \right) - E'\left( x^{j+1} \right)
+  > \sum_{i \in I_j \setminus I_{j+1}} \frac{\eta_i^2}{\sigma^2_t}
+    - \sum_{i \in I_{j+1} \setminus I_j} \frac{\eta_i^2}{\sigma^2_t}.
+\end{equation*}
+Суму квадратів незалежних випадкових величин,
+що мають стандартний нормальний розподіл,
+розподілено за законом $\chi^2$
 \begin{equation}\label{eq:background:comparison}
   \begin{cases}
     E'\left( x^j \right) - E'\left( x^{j+1} \right)
-    < \chi \sim \zeta_1 - \zeta_2, \\
+    > \chi \sim \zeta_1 - \zeta_2, \\
     \zeta_1 \sim \chi^2_{\left| I_j \setminus I_{j+1} \right|}, \\
     \zeta_2 \sim \chi^2_{\left| I_{j+1} \setminus I_j \right|}.
   \end{cases}
