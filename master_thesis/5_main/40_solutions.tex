@@ -125,14 +125,14 @@ $\left[ x - \frac{\delta x}{2}; x + \frac{\delta x}{2} \right]$,
   \to \max\limits_{x \in X}.
 \end{equation*}
 Помножимо на $-2$ та винесемо логарифм дисперсії за знак суми
-\begin{equation}\label{eq:minimize}
+\begin{equation*}
   \left| I \right| \cdot \ln{\sigma^2_t}
   + \left| L \right| \cdot \ln{\sigma_L^2}
   + \sum_{i \in I} \frac{y_i^2}{\sigma^2_t}
   + \sum_{l \in L} \frac{\Delta_l^2\left( x \right)}{\sigma_L^2}
   + \sum_{i = 1}^n x_i^2
   \to \min\limits_{x \in X}.
-\end{equation}
+\end{equation*}
 Оскільки дисперсія є константним невідомим параметром,
 можна спростити
 \begin{equation}\label{eq:minimize}
@@ -355,27 +355,27 @@ $\left[ x - \frac{\delta x}{2}; x + \frac{\delta x}{2} \right]$,
 
 Методи оптимізації використовують порівняння
 значень цільової функції в різних точках
-для визначення кращого набору параметрів
+для визначення кращого набору параметрів.
+Оскільки в досліджуваній задачі
+йдеться мова саме про мінімізацію певної функції $E$,
+значення на наступному кроці $j+1$
+повинно бути меншим за значення на поточному кроці $j$
 \begin{equation*}
-  E\left( x^j \right) < E\left( x^{j+1} \right).
-\end{equation*}
-Це еквівалентно порівнянню їх різниці з нулем
-\begin{equation*}
-  E\left( x^j \right) - E\left( x^{j+1} \right) < 0.
+  E\left( x^j \right) > E\left( x^{j+1} \right).
 \end{equation*}
 Введемо позначення для тієї множини пікселів,
 що на даній ітерації вважається множиною пікселів обличчя
 \begin{equation*}
-  I^j = \left\{ i \mcond i \in I, h_i = 0 \right\}.
+  I^j = \left\{ i \mcond i \in I, h_i\left( x^j \right) = 0 \right\}.
 \end{equation*}
-Позначимо відому частину енергії, що не містить фону,
+Відому частину енергії, що не містить фону, позначимо
 \begin{equation*}
   E'\left( x^j \right)
   = \sum_{i \in I_j} \frac{\left\| f\left( x^j \right) - t_i \right\|^2}{\sigma^2_t}
     + \sum_{l \in L} \frac{\Delta_l^2\left( x \right)}{\sigma_L^2}
     + \sum_{i = 1}^n x_i^2.
 \end{equation*}
-Частина, що містить фон
+Частину, що містить фон, позначимо
 \begin{equation*}
   E^B\left( x^j \right)
   = \sum_{i \in I \setminus I_j} \frac{\left\| \theta_i^B - t_i \right\|^2}{\sigma^2_t}.
@@ -448,10 +448,12 @@ $\left[ x - \frac{\delta x}{2}; x + \frac{\delta x}{2} \right]$,
 
 Для того, щоб нерівність \eqref{eq:background:comparison}
 виконувалася з ймовірністю $1$,
+коли $E'\left( x^j \right) > E'\left( x^{j+1} \right)$,
 необхідно, щоб кожне наступне обличчя було не менше поточного,
 доки не буде заповнено все зображення.
 Альтернативний варіант~---~обмежити коливання силуету обличчя,
-щоб різниця його площі на різних ітераціях була якнайменшою.
+щоб різниця його площі на різних ітераціях була якнайменшою,
+завдяки чому ймовірність збереження нерівності буде якнайбільшою.
 
 Оскільки не було декларовано, що зображення~---~прямокутна область,
 вона може бути довільної форми.
@@ -481,9 +483,10 @@ $\left[ x - \frac{\delta x}{2}; x + \frac{\delta x}{2} \right]$,
   \left( x, x' \right) = \sum_{i=1}^n x_i \cdot x_i'.
 \end{equation*}
 Оскільки головні компоненти нормовані,
-ділення на дисперсію не впливає на результат,
-бо вона дорівнює одиниці.
-Такий скалярний добуток породжує відстань Махалонобіса \cite{Haykin:1998}
+вони мають одиничну дисперсію,
+ділення на яку не впливає на результат.
+Такий скалярний добуток породжує відстань Махаланобіса \cite{Haykin:1998},
+що в даному випадку еквівалентна звичайній евклідовій нормі
 \begin{equation*}
   \left\| x \right\|^2 = \left( x, x \right) = \sum_{i=1}^n x_i^2.
 \end{equation*}
