@@ -1,10 +1,53 @@
 \section{Morphable Face Model}
 
-Given a set of vertices $V$
-and coefficients $\overline{\lambda}^v \in \mathbb{R}^{n + 1}$,
+Given a set of vertices $V$ with cardinality $m$,
+assume $v$ is a vertex from $V$
+and $v_i$ is an $i$-th component of the vertex.
+Having coefficients $\lambda^{v_j} \in \mathbb{R}^{n + 1}$,
 linear generative face model can be described as
 \begin{equation*}
-  G_v\left( x \right) = \lambda^v_0 + \sum_{i = 1}^{n} \lambda^v_i \cdot x_i,
-  \qquad x \in \mathbb{R}^n,
-  \qquad v \in V.
+  G_{v_i}\left( s \right)
+  = \lambda^0_{v_i} + \sum_{j = 1}^{n} \lambda^j_{v_i} \cdot s_j
+  \qquad s \in \mathbb{R}^n,
+  \qquad v \in V,
+  \qquad i \in \left\{ x, y, z \right\}.
+\end{equation*}
+Let's put an additional unity component to the shape parameter $s$,
+which is a column vector
+\begin{equation*}
+  S = \left\{ 1 \right\} \times \mathbb{R}^n
+\end{equation*}
+in order to have an ability to describe
+the generative model as a dot product
+\begin{equation*}
+  G_{v_i}\left( s \right)
+  = \lambda_{v_i} \cdot s
+  \qquad s \in S,
+  \qquad v \in V,
+  \qquad i \in \left\{ x, y, z \right\}.
+\end{equation*}
+Let's compose matrices of the coefficients for each axis of 3D space
+\begin{equation*}
+  \Lambda_i = \begin{bmatrix}
+    \lambda^0_{v_i^1} & \lambda^1_{v_i^1} & \dots  & \lambda^n_{v_i^1} \\
+    \lambda^0_{v_i^2} & \lambda^1_{v_i^2} & \dots  & \lambda^n_{v_i^2} \\
+    \vdots            & \vdots            & \ddots & \vdots            \\
+    \lambda^0_{v_i^m} & \lambda^1_{v_i^m} & \dots  & \lambda^n_{v_i^m}
+  \end{bmatrix},
+  \qquad v^j \in V,
+  \qquad i \in \left\{ x, y, z \right\}.
+\end{equation*}
+Thus we have a matrix representation of the generative model
+\begin{equation*}
+  G_i\left( s \right) = \Lambda_i \cdot s,
+\end{equation*}
+which leads to
+\begin{equation*}
+  G\left( s \right)
+  = \begin{bmatrix}
+        1 \\
+        G_x\left( s \right) \\
+        G_y\left( s \right) \\
+        G_z\left( s \right) \\
+    \end{bmatrix}.
 \end{equation*}
