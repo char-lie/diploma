@@ -1,7 +1,7 @@
 \section{Affine transformation}
 
 Affine transformation matrix for 3D space is a $4 \times 4$ matrix
-\begin{equation*}
+\begin{equation}\label{eq:matrix:affine}
   A = \begin{bmatrix}
     \vec{A}^T  & & A' & \\
     1 & 0 & 0 & 0
@@ -9,7 +9,7 @@ Affine transformation matrix for 3D space is a $4 \times 4$ matrix
   \qquad A' \in \mathbb{R}^{3 \times 3},
   \qquad \vec{A} \in \mathbb{R}^3,
   \qquad \left| A \right| \neq 0.
-\end{equation*}
+\end{equation}
 Generative model should accept affine transformation as an argument
 \begin{equation*}
   G\left( s; A \right) = A \cdot G\left( s \right)
