@@ -1,0 +1,190 @@
+\section{Selecting feature points}
+
+\subsection{Shape parameters}
+
+Assume $A_x$ and $A_y$ rows are found
+and now it's needed to find a shape of given face
+by projections of its vertices.
+From \eqref{eq:bilinear:matrix} we can see that one projection
+will give only one value of the solution vector
+\begin{equation*}
+  \left(
+    \left\langle \vec{A}_i, a_i^x, a_i^y, a_i^z \right\rangle
+    \cdot \begin{bmatrix}
+      1               & 0               & \dots & 0 \\
+      \lambda^0_{v_x} & \lambda^1_{v_x} & \dots & \lambda^n_{v_x} \\
+      \lambda^0_{v_y} & \lambda^1_{v_y} & \dots & \lambda^n_{v_y} \\
+      \lambda^0_{v_z} & \lambda^1_{v_z} & \dots & \lambda^n_{v_z} \\
+    \end{bmatrix}
+  \right)
+  \cdot \begin{bmatrix}
+    1 \\
+    s_1 \\
+    \vdots \\
+    s_n
+  \end{bmatrix}
+  = p_{v_i},
+  \qquad v \in V,
+  \qquad i \in \left\{ x, y \right\}.
+\end{equation*}
+Offset can be moved to the right side and
+expression in parentheses can be folded in
+\begin{equation}\label{eq:linear:shape:first}
+  \begin{bmatrix}
+    A_i \cdot \lambda^1_v & \dots & A_i \cdot \lambda^n_v \\
+  \end{bmatrix}
+  \cdot \begin{bmatrix}
+    s_1 \\
+    \vdots \\
+    s_n
+  \end{bmatrix}
+  = p_{v_i} - A_i \cdot \lambda^0_v,
+  \qquad v \in V,
+  \qquad i \in \left\{ x, y \right\}.
+\end{equation}
+We need to define new matrix $\Lambda'_v$ which contains only $x$, $y$ and $z$
+rows of the matrix $\Lambda_v$ and doesn't contain row $0$
+with unity in the first column and zeros in other columns.
+We have implemented $A'$ as $3 \times 3$ part of
+affine transformation matrix \eqref{eq:matrix:affine},
+which doesn't contain translation vector $\vec{A}$.
+If vectors $A'_x \cdot \Lambda'_v$ and $A'_y \cdot \Lambda'_v$
+are linearly independent,
+we can make two equations from one feature point
+\begin{equation*}
+  \begin{bmatrix}
+    A'_x \cdot \lambda^1_v & \dots & A'_x \cdot \lambda^n_v \\
+    A'_y \cdot \lambda^1_v & \dots & A'_y \cdot \lambda^n_v \\
+  \end{bmatrix}
+  \cdot \begin{bmatrix}
+    s_1 \\
+    \vdots \\
+    s_n
+  \end{bmatrix}
+  = \begin{bmatrix}
+    p_{v_x} - A_x \cdot \lambda^0_v \\
+    p_{v_y} - A_y \cdot \lambda^0_v \\
+  \end{bmatrix}
+  \qquad v \in V.
+\end{equation*}
+The fact that vectors $A'_x \cdot \Lambda'_v$ and $A'_y \cdot \Lambda'_v$
+are linearly independent can be described as
+\begin{equation*}
+  \alpha_x \cdot A'_x \cdot \Lambda'_v
+    \neq \alpha_y \cdot A'_y \cdot \Lambda'_v
+  \Rightarrow
+  \left( \alpha_x \cdot A'_x - \alpha_y \cdot A'_y \right) \cdot \Lambda'_v
+    \neq \vec{0},
+  \qquad \alpha_x^2 + \alpha_y^2 > 0.
+\end{equation*}
+The case $\alpha_x \cdot A'_x = \alpha_y \cdot A'_y$ is impossible
+because affine transformation matrix should be invertible
+and its determinant cannot be equal $0$.
+If two rows or columns of matrix are linearly dependent,
+the matrix is singular and cannot represent affine transformation.
+This means that the expression $\alpha_x \cdot A'_x - \alpha_y \cdot A'_y$
+will never give us a zero vector and we should choose such $\Lambda'_v$
+in which rows are linearly independent
+\begin{equation*}
+  \beta \cdot \Lambda'_v \neq \vec{0},
+  \qquad \beta \neq \vec{0} \in \mathbb{R}^3.
+\end{equation*}
+Two rows are not enough if we have more than $2$ shape parameters.
+Let's return to the equation \eqref{eq:linear:shape:first}
+and suppose we have two different vertices projected on axis $x$
+\begin{equation*}
+  \begin{bmatrix}
+    A'_x \cdot \lambda^1_v & \dots & A'_x \cdot \lambda^n_v \\
+    A'_x \cdot \lambda^1_u & \dots & A'_x \cdot \lambda^n_u \\
+  \end{bmatrix}
+  \cdot \begin{bmatrix}
+    s_1 \\
+    \vdots \\
+    s_n
+  \end{bmatrix}
+  = \begin{bmatrix}
+    p_{v_x} - A_x \cdot \lambda^0_v \\
+    p_{u_x} - A_x \cdot \lambda^0_u \\
+  \end{bmatrix}
+  \qquad v, u \in V.
+\end{equation*}
+Rows of the system should be linearly independent as well
+\begin{equation*}
+  A'_x \cdot \alpha_v \cdot \Lambda'_v \neq A'_x \cdot \alpha_u \cdot \Lambda'_u
+  \Rightarrow
+  A'_x \cdot \left( \alpha_v \cdot \Lambda'_v
+                  - \alpha_u \cdot \Lambda'_u \right)
+    \neq 0,
+  \qquad \alpha_v^2 + \alpha_u^2 > 0.
+\end{equation*}
+Row $A'_x$ cannot be $\vec{0}$ because it's a row of nonsingular matrix.
+Matrices $\Lambda'_v$ and $\Lambda'_u$
+should be chosen to be linearly independent
+\begin{equation*}
+  \alpha_v \cdot \Lambda'_v \neq \alpha_u \cdot \Lambda'_u,
+  \qquad \alpha_v^2 + \alpha_u^2 > 0.
+\end{equation*}
+As in the case with two projections of a single vertex,
+we have original equation with new constraints
+\begin{equation*}
+  \begin{cases}
+    \beta \cdot \left( \alpha_v \cdot \Lambda'_v
+                     - \alpha_u \cdot \Lambda'_u \right)
+    \neq \vec{0}, \\
+    \alpha_v \cdot \Lambda'_v \neq \alpha_u \cdot \Lambda'_u,
+  \end{cases}
+  \qquad \alpha_v^2 + \alpha_u^2 > 0,
+  \qquad \beta \neq \vec{0} \in \mathbb{R}^3.
+\end{equation*}
+Nothing will be affected if we will say that $\alpha_u = - \alpha_u$,
+but it will be more convenient.
+Let's unfold the first inequality
+\begin{equation*}
+  \begin{bmatrix}
+    \beta^x & \beta^y & \beta^z
+  \end{bmatrix}
+  \cdot \begin{bmatrix}
+    \alpha_v \cdot \lambda_{v_x} + \alpha_u \cdot \lambda_{u_x} \\
+    \alpha_v \cdot \lambda_{v_y} + \alpha_u \cdot \lambda_{u_y} \\
+    \alpha_v \cdot \lambda_{v_z} + \alpha_u \cdot \lambda_{u_z} \\
+  \end{bmatrix}
+  \neq \vec{0},
+  \qquad \alpha_v^2 + \alpha_u^2 > 0,
+  \qquad \left( \beta^x \right)^2
+    + \left( \beta^y \right)^2
+    + \left( \beta^z \right)^2 > 0.
+\end{equation*}
+It will be convenient to define $\gamma_w^i = \beta^i \cdot \alpha_w$.
+These components will not all be equal to zero at the same time because
+sum of their squares equals product of sums of squares
+of $\alpha$ and $\beta$ components, which both are greater than $0$
+\begin{equation*}
+  \sum_{w \in \left\{ v, u \right\}}
+  \sum_{i \in \left\{ x, y, z \right\}}
+    \left( \gamma_w^i \right)^2
+  =
+  \sum_{w \in \left\{ v, u \right\}}
+  \sum_{i \in \left\{ x, y, z \right\}}
+    \left( \beta^i \cdot \alpha_w \right)^2
+  =
+  \left( \sum_{w \in \left\{ v, u \right\}} \alpha_w^2 \right)
+  \cdot
+  \left( \sum_{i \in \left\{ x, y, z \right\}} \left( \beta^i \right)^2 \right)
+  > 0,
+\end{equation*}
+and we will get
+\begin{equation*}
+  \gamma_v^x \cdot \lambda_{v_x}
+  + \gamma_u^x \cdot \lambda_{u_x}
+  + \gamma_v^y \cdot \lambda_{v_y}
+  + \gamma_u^y \cdot \lambda_{u_y}
+  + \gamma_v^z \cdot \lambda_{v_z}
+  + \gamma_u^z \cdot \lambda_{u_z}
+  \neq \vec{0},
+  \qquad
+    \sum_{w \in \left\{ v, u \right\}}
+    \sum_{i \in \left\{ x, y, z \right\}}
+      \left( \gamma_w^i \right)^2 > 0.
+\end{equation*}
+Now we see that all components of chosen vertices
+should be linearly independent in their linear span.
