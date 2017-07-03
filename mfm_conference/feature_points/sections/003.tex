@@ -178,6 +178,107 @@ with respect to $x$ and $y$ rows of affine transformation matrix
   \qquad i \in \left\{ x, y \right\},
   \qquad j \in \left\{ 0, x, y, z \right\}.
 \end{equation*}
+Even though $\Lambda_v$ are matrices,
+we can represent them as column vectors
+in order to find right vectors $\varphi$.
+Final vector is a concatenation of columns of given matrix
+\begin{equation*}
+  \Lambda_v = \begin{bmatrix}
+    1               & 0               & \dots & 0 \\
+    \lambda^0_{v_x} & \lambda^1_{v_x} & \dots & \lambda^n_{v_x} \\
+    \lambda^0_{v_y} & \lambda^1_{v_y} & \dots & \lambda^n_{v_y} \\
+    \lambda^0_{v_z} & \lambda^1_{v_z} & \dots & \lambda^n_{v_z} \\
+  \end{bmatrix}
+  \mapsto
+  \begin{bmatrix}
+    1 \\
+    \lambda^0_{v_x} \\
+    \lambda^0_{v_y} \\
+    \vdots \\
+    \lambda^n_{v_y} \\
+    \lambda^n_{v_z} \\
+  \end{bmatrix}
+  \qquad v \in V.
+\end{equation*}
+All these vectors can be concatenated to a matrix
+in order to build a linear equation.
+Example of the equation of $\varphi^y$
+\begin{equation}\label{eq:linear:affine}
+  \begin{bmatrix}
+    1                 & 1                 & \dots & 1                 & \\
+    \lambda^0_{v^1_x} & \lambda^0_{v^2_x} & \dots & \lambda^0_{v^m_x} & \\
+    \lambda^0_{v^1_y} & \lambda^0_{v^2_y} & \dots & \lambda^0_{v^m_y} & \\
+    \lambda^0_{v^1_z} & \lambda^0_{v^2_z} & \dots & \lambda^0_{v^m_z} & \\
+    \vdots            & \vdots            & \dots & \vdots            & \\
+    \lambda^n_{v^1_y} & \lambda^n_{v^2_y} & \dots & \lambda^n_{v^m_y} & \\
+    \lambda^n_{v^1_z} & \lambda^n_{v^2_z} & \dots & \lambda^n_{v^m_z} & \\
+  \end{bmatrix}
+  \cdot
+  \begin{bmatrix}
+    \varphi^y_{v^1} \\
+    \varphi^y_{v^2} \\
+    \vdots          \\
+    \varphi^y_{v^m} \\
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    0       \\
+    0       \\
+    r_y     \\
+    0       \\
+    \vdots  \\
+    0       \\
+  \end{bmatrix},
+\end{equation}
+where $r_y$ is a non-zero real number.
+How to solve an equation if we don't know the value of $r_y$?
+We can solve an equation which will give us a range of possible values of $r_y$
+\begin{equation*}
+  \begin{bmatrix}
+    \lambda^0_{v^1_y} & \lambda^0_{v^2_y} & \dots & \lambda^0_{v^m_y} & \\
+  \end{bmatrix}
+  \cdot
+  \begin{bmatrix}
+    \varphi^y_{v^1} \\
+    \varphi^y_{v^2} \\
+    \vdots          \\
+    \varphi^y_{v^m} \\
+  \end{bmatrix}
+  \neq 0
+\end{equation*}
+and see what constraints vector $\varphi^y$ has.
+Then the row which contains $\lambda^0_{v_y}$ coefficients
+can be dropped from the original equation \eqref{eq:linear:affine}
+and it can be solved as an ordinary linear equation
+\begin{equation*}
+  \begin{bmatrix}
+    1                 & 1                 & \dots & 1                 & \\
+    \lambda^0_{v^1_x} & \lambda^0_{v^2_x} & \dots & \lambda^0_{v^m_x} & \\
+    \lambda^0_{v^1_z} & \lambda^0_{v^2_z} & \dots & \lambda^0_{v^m_z} & \\
+    \vdots            & \vdots            & \dots & \vdots            & \\
+    \lambda^n_{v^1_y} & \lambda^n_{v^2_y} & \dots & \lambda^n_{v^m_y} & \\
+    \lambda^n_{v^1_z} & \lambda^n_{v^2_z} & \dots & \lambda^n_{v^m_z} & \\
+  \end{bmatrix}
+  \cdot
+  \begin{bmatrix}
+    \varphi^y_{v^1} \\
+    \varphi^y_{v^2} \\
+    \vdots          \\
+    \varphi^y_{v^m} \\
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    0       \\
+    0       \\
+    0       \\
+    \vdots  \\
+    0       \\
+  \end{bmatrix}.
+\end{equation*}
+Intersection of solution of this equation
+with constraints from the previous step
+will be a final solution set, which may be empty.
+
 When the system will be solved,
 we will get two rows of the matrix $A$
 and this will change bilinear equation \eqref{eq:bilinear:matrix}
