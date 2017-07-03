@@ -1,4 +1,6 @@
-\section{Finding affine transformation by projection}
+\section{Problem of finding affine transformation by projection}
+
+\subsection{Statement of the general problem}
 
 Given projection of vertices on $XY$ plane,
 we can build a system of bilinear equations
@@ -80,7 +82,9 @@ where only the coefficients matrix $\Lambda$ is known
   \qquad v \in V,
   \qquad i \in \left\{ x, y \right\}.
 \end{equation}
-The first component of the shape vector $s$~---~it's $1$ by definition.
+
+\subsection{Reducing the problem to system of linear equations}
+The first component of the shape vector $s$ equals $1$ by definition.
 Other components are unknown,
 but can be ignored if corresponding coefficients will be $0$.
 We can reach this by finding such vector $\varphi^k$
