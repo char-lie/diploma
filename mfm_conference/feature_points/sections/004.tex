@@ -182,7 +182,7 @@ of $\alpha$ and $\beta$ components, which both are greater than $0$
   > 0,
 \end{equation*}
 and we will get
-\begin{equation*}
+\begin{equation}\label{eq:components:independent}
   \gamma_v^x \cdot \lambda_{v_x}
   + \gamma_u^x \cdot \lambda_{u_x}
   + \gamma_v^y \cdot \lambda_{v_y}
@@ -194,6 +194,51 @@ and we will get
     \sum_{w \in \left\{ v, u \right\}}
     \sum_{i \in \left\{ x, y, z \right\}}
       \left( \gamma_w^i \right)^2 > 0.
-\end{equation*}
+\end{equation}
 Now we see that all components of chosen vertices
 should be linearly independent in their linear span.
+
+We need to choose such vertices that each component of any of them
+will be linearly independent with other components.
+Define projection of vector $u$ on vector $v$ as
+\begin{equation*}
+  proj_v\left( u \right)
+  = \frac{\left( u, v \right)}{\left\| v \right\|^2} \cdot v.
+\end{equation*}
+We need a shortcut to watch those vertices
+which have linearly independent components
+\begin{equation*}
+  \Lambda'^{\perp}_v = \begin{bmatrix}
+    \lambda'_{v_x} \\
+    \lambda'_{v_y} - proj_{\lambda'_{v_x}}\left( \lambda'_{v_y} \right) \\
+    \lambda'_{v_z} - proj_{\lambda'_{v_x}}\left( \lambda'_{v_z} \right)
+                   - proj_{\lambda'_{v_y}}\left( \lambda'_{v_z} \right) \\
+  \end{bmatrix},
+  \qquad v \in V,
+  \qquad \lambda'_v \in \Lambda'_v.
+\end{equation*}
+Finally, the set of needed vertices is constructed as follows
+\begin{equation*}
+  \mathcal{S}
+  = \left\{ v^k \;\middle|\;
+    \lambda'^{\perp}_{v^k_t}
+    - \sum_{j = 1}^{k - 1} \sum_{i \in \left\{ x, y, z \right\}}
+    proj_{\lambda'^{\perp}_{v^j_i}} \neq \vec{0},
+    \qquad t \in \left\{ x, y, z \right\}
+  \right\}.
+\end{equation*}
+All components should be linearly independent.
+The generative model is based on PCA,
+where each component of each vertex is a separate value to be analyzed.
+Each component is represented as a vector in $n$-dimensional space
+and we can have not more than $n$ linearly independent components.
+It appeared in \label{eq:components:independent}
+that vertices should be chosen so that
+all components of all vertices are linearly independent.
+That's why there's no reason to not choose only one projection of any vertex.
+Though, we cannot take all three projections because input image is flat.
+Finally, we need $n$ components~---~$\lfloor \frac{n}{3} \rfloor$ vertices.
+The issue is that we will have only $\lfloor \frac{2 \cdot n}{3} \rfloor$
+projections,
+which means a system of $\lfloor \frac{2 \cdot n}{3} \rfloor$ linear equations
+with $n$ variables.
