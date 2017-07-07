@@ -44,7 +44,16 @@ expression in parentheses can be folded in
 \end{equation}
 We need to define new matrix $\Lambda'_v$ which contains only $x$, $y$ and $z$
 rows of the matrix $\Lambda_v$ and doesn't contain row $0$
-with unity in the first column and zeros in other columns.
+with unity in the first column and zeros in other columns,
+and doesn't contain column $0$ with vertex initial position
+\begin{equation*}
+  \Lambda'_v = \begin{bmatrix}
+    \lambda^1_{v_x} & \dots & \lambda^n_{v_x} \\
+    \lambda^1_{v_y} & \dots & \lambda^n_{v_y} \\
+    \lambda^1_{v_z} & \dots & \lambda^n_{v_z} \\
+  \end{bmatrix},
+  \qquad v \in V.
+\end{equation*}
 We have implemented $A'$ as $3 \times 3$ part of
 affine transformation matrix \eqref{eq:matrix:affine},
 which doesn't contain translation vector $\vec{A}$.
