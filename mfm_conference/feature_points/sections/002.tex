@@ -3,16 +3,15 @@
 Affine transformation matrix for 3D space is a $4 \times 4$ matrix
 \begin{equation}\label{eq:matrix:affine}
   A = \begin{bmatrix}
-    \vec{A}^T  & & A' & \\
-    1 & 0 & 0 & 0
+    1       & 0 & 0  & 0 \\
+    \vec{A} &   & A' &   \\
   \end{bmatrix},
-  \qquad A' \in \mathbb{R}^{3 \times 3},
-  \qquad \vec{A} \in \mathbb{R}^3,
-  \qquad \left| A \right| \neq 0.
+  \quad A' \in \mathbb{R}^{3 \times 3},
+  \quad \left| A \right| \neq 0.
 \end{equation}
-Generative model should accept affine transformation as an argument
+The generative model should accept affine transformation as an argument
 \begin{equation*}
-  G\left( s; A \right) = A \cdot G\left( s \right)
+  G\left( s; A \right) = A \cdot G\left( s \right).
 \end{equation*}
 
 We need to define matrix $\Lambda_v$ with coefficients for
@@ -23,8 +22,7 @@ a vertex $v \in V$
     \lambda^0_{v_x} & \lambda^1_{v_x} & \dots & \lambda^n_{v_x} \\
     \lambda^0_{v_y} & \lambda^1_{v_y} & \dots & \lambda^n_{v_y} \\
     \lambda^0_{v_z} & \lambda^1_{v_z} & \dots & \lambda^n_{v_z} \\
-  \end{bmatrix},
-  \qquad v \in V.
+  \end{bmatrix}.
 \end{equation*}
 
 Componentwise notation of the model
@@ -33,24 +31,19 @@ is
 \begin{equation*}
   G_{v_i}\left( s; A \right)
   = A_i \cdot G_v\left( s \right)
-  \qquad v \in V,
-  \qquad i \in \left\{ x, y, z \right\},
+  \quad i \in I.
 \end{equation*}
-where $A_i$ is the $i$-th row of the matrix $A$ and
-$\left\langle x, y, z \right\rangle \mapsto \left\langle 1, 2, 3 \right\rangle$,
-indexing starts from $0$.
 After replacing $G_v\left( s \right)$ by its value we get
 a bilinear representation of the entity
 \begin{equation*}
   G_{v_i}\left( s; A \right)
   = A_i \cdot \Lambda_v \cdot s,
-  \qquad v \in V,
-  \qquad i \in \left\{ x, y, z \right\}.
+  \quad i \in I.
 \end{equation*}
 Unfolded
 \begin{equation*}
   G_{v_i}\left( s; A \right)
-  = \left\langle \vec{A}_i, a_i^x, a_i^y, a_i^z \right\rangle
+  = \left\langle a^0_i, a_i^x, a_i^y, a_i^z \right\rangle
     \cdot \begin{bmatrix}
       1               & 0               & \dots & 0 \\
       \lambda^0_{v_x} & \lambda^1_{v_x} & \dots & \lambda^n_{v_x} \\

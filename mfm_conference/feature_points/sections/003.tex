@@ -2,56 +2,42 @@
 
 \subsection{Statement of the general problem}
 
-Given projection of vertices on $XY$ plane,
+Given projection of vertices on $xy$ plane,
 we can build a system of bilinear equations
 \begin{equation*}
   p_{v_i}
   = G_{v_i}\left( s; A \right)
   = \sum\limits_{j = 0}^{n} \sum\limits_{k = 0}^{3}
     s_{j} \cdot \lambda^{j}_{v_k} \cdot A_i^{k},
-  \qquad v \in V,
-  \qquad i \in \left\{ x, y \right\}.
+  \quad i \in I^p.
 \end{equation*}
-If we will add projection on an axis
-of a vertex $v$ to another vertex $u$,
-we  will have
-\begin{equation*}
-  p_{v_i} + p_{u^i}
-  = \sum\limits_{j = 0}^{n} \sum\limits_{k = 0}^{3}
-    s_{j} \cdot \lambda^{j}_{v_k} \cdot A_x^{k}
-  + \sum\limits_{j = 0}^{n} \sum\limits_{k = 0}^{3}
-    s_{j} \cdot \lambda^{j}_{v_k} \cdot A_x^{k},
-  \qquad v, u \in V,
-  \qquad i \in \left\{ x, y, z \right\}.
-\end{equation*}
+Assume we have added projection of another vertex $u$.
 Coefficients $s$ and $A^x$ are generic
-for entire model~---~thus for all vertices,
-so we need to add only PCA coefficients
+for entire model~---~thus for all vertices.
+We need to add only PCA coefficients
 \begin{equation*}
-  p_{v_i} + p_{u^i}
+  p_{v_i} + p_{u_i}
   = \sum\limits_{j = 0}^{n} \sum\limits_{k = 0}^{3}
     s_{j} \cdot \left( \lambda^{j}_{v_k} + \lambda^{j}_{u_k} \right)
     \cdot A_x^{k},
-  \qquad v, u \in V,
-  \qquad i \in \left\{ x, y, z \right\}.
+  \quad i \in I.
 \end{equation*}
 In matrix view
 \begin{equation*}
   G_{v_i}\left( s; A \right) + G_{u_i}\left( s; A \right)
   = A_i \cdot \left( \Lambda_v + \Lambda_u \right) \cdot s,
-  \qquad v, u \in V,
-  \qquad i \in \left\{ x, y, z \right\}.
+  \quad v, u \in V,
+  \quad i \in I.
 \end{equation*}
 We can multiply projections by scalars
 and this will change only coefficients matrix
 \begin{equation*}
-  \alpha \cdot p_{v_i} + \beta \cdot p_{u^i}
+  \alpha \cdot p_{v_i} + \beta \cdot p_{u_i}
   = A_i
     \cdot \left( \alpha \cdot \Lambda_v + \beta \cdot \Lambda_u \right)
     \cdot s,
-  \qquad v, u \in V,
-  \qquad i \in \left\{ x, y, z \right\},
-  \qquad \alpha, \beta \in \mathbb{R}.
+  \quad i \in I,
+  \quad \alpha, \beta \in \mathbb{R}.
 \end{equation*}
 In other words, for any real column vector $\varphi$
 \begin{equation*}
@@ -59,28 +45,15 @@ In other words, for any real column vector $\varphi$
   = A_i
     \cdot \left( \sum_{w \in V} \varphi_w \cdot \Lambda_w \right)
     \cdot s,
-  \qquad \varphi \in \mathbb{R}^m.
+  \quad \varphi \in \mathbb{R}^m.
 \end{equation*}
 
 We have a system of bilinear equations,
 where only the coefficients matrix $\Lambda$ is known
 \begin{equation}\label{eq:bilinear:matrix}
   p_{v_i}
-  = \left\langle \vec{A}_i, a_i^x, a_i^y, a_i^z \right\rangle
-    \cdot \begin{bmatrix}
-      1               & 0               & \dots & 0 \\
-      \lambda^0_{v_x} & \lambda^1_{v_x} & \dots & \lambda^n_{v_x} \\
-      \lambda^0_{v_y} & \lambda^1_{v_y} & \dots & \lambda^n_{v_y} \\
-      \lambda^0_{v_z} & \lambda^1_{v_z} & \dots & \lambda^n_{v_z} \\
-    \end{bmatrix}
-    \cdot \begin{bmatrix}
-      1 \\
-      s_1 \\
-      \vdots \\
-      s_n
-    \end{bmatrix},
-  \qquad v \in V,
-  \qquad i \in \left\{ x, y \right\}.
+  = A_i \cdot \Lambda_v \cdot s,
+  \quad i \in I^p.
 \end{equation}
 
 \subsection{Reducing the problem to system of linear equations}
@@ -93,16 +66,15 @@ that all cells except one in the row $k$ of the column $0$ will become zero
   \begin{cases}
     \sum\limits_{w \in V} \varphi_w^k \cdot \lambda_{w_k}^0 &\neq 0, \\
     \sum\limits_{w \in V} \varphi_w^k \cdot \lambda_{w_i}^j &= 0,
-      \qquad j > 0,
-      \qquad v_i \neq u_k, \\
+      \quad j > 0,
+      \quad v_i \neq u_k, \\
   \end{cases}
-  \qquad i, k \in \left\{ x, y, z \right\},
-  \qquad v, u \in V.
+  \quad i, k \in I.
 \end{equation*}
-Given a vector $\varphi^x$, we have an equation
+Given vector $\varphi^x$, we have an equation
 \begin{equation*}
   \sum\limits_{w \in V} \varphi_w^x \cdot p_{w_x}
-  = \left\langle \vec{A}_x, a_x^x, a_x^y, a_x^z \right\rangle
+  = A_x
     \cdot \begin{bmatrix}
       0                                     & 0 & \dots & 0 \\
       \sum\limits_{w \in V} \varphi_w^x
@@ -115,27 +87,24 @@ Given a vector $\varphi^x$, we have an equation
       s_1 \\
       \vdots \\
       s_n
-    \end{bmatrix},
-  \qquad u \in V.
+    \end{bmatrix}.
 \end{equation*}
 Product of last two items will give a column vector
 \begin{equation*}
   \sum\limits_{w \in V} \varphi_w^x \cdot p_{w_x}
-  = \left\langle \vec{A}_x, a_x^x, a_x^y, a_x^z \right\rangle
+  = \left\langle a^0_x, a_x^x, a_x^y, a_x^z \right\rangle
     \cdot \begin{bmatrix}
       0 \\
       \sum\limits_{w \in V} \varphi_w^x
         \cdot \lambda^0_{w_x}               \\
       0                                     \\
       0                                     \\
-    \end{bmatrix}
-  \qquad u \in V.
+    \end{bmatrix}.
 \end{equation*}
 The final expression is
 \begin{equation*}
   \sum\limits_{w \in V} \varphi_w^x \cdot p_{w_x}
-  = a_x^x \cdot \sum\limits_{w \in V} \varphi_w^x \cdot \lambda^0_{w_x},
-  \qquad u \in V.
+  = a_x^x \cdot \sum\limits_{w \in V} \varphi_w^x \cdot \lambda^0_{w_x}.
 \end{equation*}
 We should notice that only vector $\varphi^0$
 should not have a zero sum of its components.
@@ -147,7 +116,7 @@ Look at the following equation to see what it means for $\varphi^0$
 and projection to $x$ axis
 \begin{equation*}
   \sum\limits_{w \in V} \varphi_w^0 \cdot p_{w_x}
-  = \left\langle \vec{A}_x, a_x^x, a_x^y, a_x^z \right\rangle
+  = \left\langle a^0_x, a_x^x, a_x^y, a_x^z \right\rangle
     \cdot \begin{bmatrix}
       \sum\limits_{w \in V} \varphi_w^0 & 0 & \dots & 0 \\
       0                                 & 0 & \dots   & 0 \\
@@ -159,14 +128,12 @@ and projection to $x$ axis
       s_1 \\
       \vdots \\
       s_n
-    \end{bmatrix},
-  \qquad u \in V.
+    \end{bmatrix}.
 \end{equation*}
 Resulting equation for the $x$ offset is
 \begin{equation*}
   \sum\limits_{w \in V} \varphi_w^0 \cdot p_{w_x}
-  = \vec{A}_x \cdot \sum\limits_{w \in V} \varphi_w^0,
-  \qquad u \in V.
+  = a^0_x \cdot \sum\limits_{w \in V} \varphi_w^0.
 \end{equation*}
 
 Now we have a system of linear equations
@@ -174,9 +141,8 @@ with respect to $x$ and $y$ rows of affine transformation matrix
 \begin{equation*}
   \sum\limits_{w \in V} \varphi_w^j \cdot p_{w_i}
   = A_i^j \cdot \sum\limits_{w \in V} \varphi_w^j \lambda^0_{w_j},
-  \qquad u \in V,
-  \qquad i \in \left\{ x, y \right\},
-  \qquad j \in \left\{ 0, x, y, z \right\}.
+  \quad i \in I^p,
+  \quad j \in I^h.
 \end{equation*}
 Even though $\Lambda_v$ are matrices,
 we can represent them as column vectors
@@ -197,8 +163,7 @@ Final vector is a concatenation of columns of given matrix
     \vdots \\
     \lambda^n_{v_y} \\
     \lambda^n_{v_z} \\
-  \end{bmatrix}
-  \qquad v \in V.
+  \end{bmatrix}.
 \end{equation*}
 All these vectors can be concatenated to a matrix
 in order to build a linear equation.
@@ -228,7 +193,7 @@ Example of the equation of $\varphi^y$
     0       \\
     \vdots  \\
     0       \\
-  \end{bmatrix},
+  \end{bmatrix}.
 \end{equation}
 where $r_y$ is a non-zero real number.
 How to solve an equation if we don't know the value of $r_y$?
@@ -244,7 +209,7 @@ We can solve an equation which will give us a range of possible values of $r_y$
     \vdots          \\
     \varphi^y_{v^m} \\
   \end{bmatrix}
-  \neq 0
+  \neq 0,
 \end{equation*}
 and see what constraints vector $\varphi^y$ has.
 Then the row which contains $\lambda^0_{v_y}$ coefficients
