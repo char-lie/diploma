@@ -3,12 +3,15 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{hyperref}
+\usepackage[backend=bibtex]{biblatex}
 \usepackage[
   left=1cm,
   right=1cm,
   top=1cm,
   bottom=2cm
 ]{geometry}
+
+\bibliography{bibliography.bib}
 
 \input{preamble/japanese.tex}
 
@@ -20,11 +23,18 @@
 \maketitle
 \begin{CJK}{UTF8}{min}
 
+\input{sections/abstract.tex}
+
 \input{sections/000.tex}
 \input{sections/001.tex}
 \input{sections/002.tex}
 \input{sections/003.tex}
 \input{sections/004.tex}
 
+\input{sections/conclusion.tex}
+
 \end{CJK}
+
+\printbibliography
+
 \end{document}
