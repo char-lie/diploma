@@ -1,16 +1,58 @@
 \section{Notation and basic definitions}
 
-3D model consists of vertices which have definite positions.
-Vertices are characterised not only by their positions,
-so we will use them as indices for their properties.
-The set of vertices will be noted $V$.
-Certain vertices will be $v$, $u$ and $w$~---~in this document
+Sets in this paper are denoted by Euler script letters,
+for example $\mathcal{I}$.
+Small bold letters like $\pmb{u}$ are for vectors.
+Capital letters mean matrices, e. g. $A$.
+Upper indices of matrices mean columns, lower are for rows.
+Row is a vector as well as a column,
+so they are denoted by the same letter as corresponding matrix,
+but bold lowercase.
+For example, row $0$ of matrix $A$ is $\pmb{a}_0$,
+column $x$ of matrix $\Lambda$ is $\pmb{\lambda}^x$.
+Vectorized matrix consists of columns of the matrix stacked together
+one by one and will be denoted by bold capital letter
+\begin{equation*}
+  A = \begin{bmatrix}
+    a^1_1  & a^1_2  & \dots & a^1_m  \\
+    a^2_1  & a^2_2  & \dots & a^2_m  \\
+    \vdots & \vdots & \dots & \vdots \\
+    a^n_1  & a^n_2  & \dots & a^n_m  \\
+  \end{bmatrix}
+  \mapsto
+  \begin{bmatrix}
+    a^1_1     \\
+    a^1_2     \\
+    \vdots    \\
+    a^1_m     \\
+    a^2_1     \\
+    a^2_2     \\
+    \vdots    \\
+    a^n_{m-1} \\
+    a^n_m     \\
+  \end{bmatrix}
+  = \pmb{A}
+\end{equation*}
+
+3D model consists of vertices.
+Each vertex has its own tuple of properties.
+It's convenient to use vertex identifier as an index for its properties instead of vice versa.
+The set of vertices will be denoted $V$ and its cardinality is $m$.
+Particular vertices will be $v$, $u$ and $w$~---~in this document
 it's assumed that these letters in formulas
 mean any element from the set $V$ unless otherwise specified.
 
 We need three sets of indices for space axes:
 \begin{itemize}
-  \item $I = \left\{ x, y, z \right\}$ for ordinary 3D space;
-  \item $I^h = \left\{ 0, x, y, z \right\}$ for homogeneous coordinates;
-  \item $I^p = \left\{ x, y \right\}$ for plane.
+  \item $\mathcal{I} = \left\{ x, y, z \right\}$ for ordinary 3D space;
+  \item $\mathcal{I}^h = \left\{ 0, x, y, z \right\}$ for homogeneous coordinates;
+  \item $\mathcal{I}^p = \left\{ x, y \right\}$ for plane.
 \end{itemize}
+
+Projection of vertex $v$ on $i$ axis is $v_i$ and it's a scalar.
+Projection of vector $\pmb{v}$ on vector $\pmb{u}$ is a vector
+\begin{equation*}
+  \pmb{v} \parallel \pmb{u}
+  = \frac{\left( \pmb{v}, \pmb{u} \right)}{\left\| \pmb{u} \right\|^2}
+    \cdot \pmb{u}.
+\end{equation*}
