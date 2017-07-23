@@ -2,16 +2,18 @@
 
 Affine transformation matrix for 3D space is a $4 \times 4$ matrix
 \begin{equation}\label{eq:matrix:affine}
-  A = \begin{bmatrix}
-    1       & 0 & 0  & 0 \\
-    \vec{A} &   & A' &   \\
-  \end{bmatrix},
-  \quad A' \in \mathbb{R}^{3 \times 3},
-  \quad \left| A \right| \neq 0.
+  \left\{\begin{aligned}
+    A &= \begin{bmatrix}
+      1         & 0 & 0  & 0 \\
+      \pmb{A}^0 &   & A' &   \\
+    \end{bmatrix}, \\
+    \left| A \right| &\neq 0,
+  \end{aligned}\right.
+  \quad A' \in \mathbb{R}^{3 \times 3}.
 \end{equation}
 The generative model should accept affine transformation as an argument
 \begin{equation*}
-  G\left( s; A \right) = A \cdot G\left( s \right).
+  G\left( \pmb{s}; A \right) = A \cdot G\left( \pmb{s} \right).
 \end{equation*}
 
 We need to define matrix $\Lambda_v$ with coefficients for
@@ -26,24 +28,29 @@ a vertex $v \in V$
 \end{equation*}
 
 Componentwise notation of the model
-generated with parameters $s$ and affine transformation matrix $A$
+generated with parameters $\pmb{s}$ and affine transformation matrix $A$
 is
 \begin{equation*}
-  G_{v_i}\left( s; A \right)
-  = A_i \cdot G_v\left( s \right)
-  \quad i \in I.
+  G_{v_i}\left( \pmb{s}; A \right)
+  = \pmb{a}_i \cdot G_v\left( \pmb{s} \right)
+  \quad i \in \mathcal{I}.
 \end{equation*}
-After replacing $G_v\left( s \right)$ by its value we get
+After replacing $G_v\left( \pmb{s} \right)$ by its value we get
 a bilinear representation of the entity
 \begin{equation*}
-  G_{v_i}\left( s; A \right)
-  = A_i \cdot \Lambda_v \cdot s,
-  \quad i \in I.
+  G_{v_i}\left( \pmb{s}; A \right)
+  = \pmb{a}_i \cdot \Lambda_v \cdot \pmb{s},
+  \quad i \in \mathcal{I}.
 \end{equation*}
 Unfolded
 \begin{equation*}
-  G_{v_i}\left( s; A \right)
-  = \left\langle a^0_i, a_i^x, a_i^y, a_i^z \right\rangle
+  G_{v_i}\left( \pmb{s}; A \right)
+  = \begin{bmatrix}
+      a^0_i \\
+      a_i^x \\
+      a_i^y \\
+      a_i^z \\
+    \end{bmatrix}^T
     \cdot \begin{bmatrix}
       1               & 0               & \dots & 0 \\
       \lambda^0_{v_x} & \lambda^1_{v_x} & \dots & \lambda^n_{v_x} \\
@@ -59,7 +66,7 @@ Unfolded
 \end{equation*}
 As a sum
 \begin{equation*}
-  G_{v_i}\left( s; A \right)
+  G_{v_i}\left( \pmb{s}; A \right)
   = \sum\limits_{j = 0}^{n} \sum\limits_{k = 0}^{3}
-    s_{j} \cdot \lambda^{j}_{v_k} \cdot A_i^{k}.
+    s_{j} \cdot \lambda^{j}_{v_k} \cdot a_i^{k}.
 \end{equation*}

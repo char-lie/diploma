@@ -2,28 +2,30 @@
 
 \subsection{Shape parameters}
 
-Assume $A_x$ and $A_y$ rows are found
+Assume $\pmb{a}_x$ and $\pmb{a}_y$ rows are found
 and now it's needed to find a shape of given face
 by projections of its vertices.
 From \eqref{eq:bilinear:matrix} we can see that one projection
 will give only one value of the solution vector
 \begin{equation*}
-  \left( A_i \cdot \Lambda_v \right) \cdot s = p_{v_i},
-  \quad i \in I^p.
+  \left( \pmb{a}_i \cdot \Lambda_v \right) \cdot \pmb{s} = p_{v_i},
+  \quad i \in \mathcal{I}^p.
 \end{equation*}
 Offset can be moved to the right side and
-expression in parentheses can be folded in
+expression in parentheses can be unfolded as
 \begin{equation}\label{eq:linear:shape:first}
   \begin{bmatrix}
-    A_i \cdot \lambda^1_v & \dots & A_i \cdot \lambda^n_v \\
-  \end{bmatrix}
+    \pmb{a}_i \cdot \lambda^1_v \\
+    \vdots \\
+    \pmb{a}_i \cdot \lambda^n_v \\
+  \end{bmatrix}^T
   \cdot \begin{bmatrix}
     s_1 \\
     \vdots \\
     s_n
   \end{bmatrix}
-  = p_{v_i} - A_i \cdot \lambda^0_v,
-  \quad i \in I^p.
+  = p_{v_i} - \pmb{a}_i \cdot \lambda^0_v,
+  \quad i \in \mathcal{I}^p.
 \end{equation}
 We need to define new matrix $\Lambda'_v$ which contains only $x$, $y$ and $z$
 rows of the matrix $\Lambda_v$ and doesn't contain row $0$
@@ -36,16 +38,16 @@ and doesn't contain column $0$ with vertex initial position
     \lambda^1_{v_z} & \dots & \lambda^n_{v_z} \\
   \end{bmatrix}.
 \end{equation*}
-We have implemented $A'$ as $3 \times 3$ part of
+We have defined $A'$ as $3 \times 3$ part of
 affine transformation matrix \eqref{eq:matrix:affine},
-which doesn't contain translation vector $\vec{A}$.
-If vectors $A'_x \cdot \Lambda'_v$ and $A'_y \cdot \Lambda'_v$
+which doesn't contain translation vector $\pmb{A}$.
+If vectors $\pmb{a}'_x \cdot \Lambda'_v$ and $\pmb{a}'_y \cdot \Lambda'_v$
 are linearly independent,
 we can make two equations from one feature point
 \begin{equation*}
   \begin{bmatrix}
-    A'_x \cdot \lambda^1_v & \dots & A'_x \cdot \lambda^n_v \\
-    A'_y \cdot \lambda^1_v & \dots & A'_y \cdot \lambda^n_v \\
+    \pmb{a}'_x \cdot \lambda^1_v & \dots & \pmb{a}'_x \cdot \lambda^n_v \\
+    \pmb{a}'_y \cdot \lambda^1_v & \dots & \pmb{a}'_y \cdot \lambda^n_v \\
   \end{bmatrix}
   \cdot \begin{bmatrix}
     s_1 \\
@@ -53,42 +55,49 @@ we can make two equations from one feature point
     s_n
   \end{bmatrix}
   = \begin{bmatrix}
-    p_{v_x} - A_x \cdot \lambda^0_v \\
-    p_{v_y} - A_y \cdot \lambda^0_v \\
+    p_{v_x} - \pmb{a}_x \cdot \lambda^0_v \\
+    p_{v_y} - \pmb{a}_y \cdot \lambda^0_v \\
   \end{bmatrix}.
 \end{equation*}
-The fact that vectors $A'_x \cdot \Lambda'_v$ and $A'_y \cdot \Lambda'_v$
+The fact that vectors $\pmb{a}'_x \cdot \Lambda'_v$ and $\pmb{a}'_y \cdot \Lambda'_v$
 are linearly independent can be described as
 \begin{equation*}
-  \alpha_x \cdot A'_x \cdot \Lambda'_v
-    \neq \alpha_y \cdot A'_y \cdot \Lambda'_v,
-  \quad \alpha_x^2 + \alpha_y^2 > 0,
+  \left\{\begin{aligned}
+    \psi_x \cdot \pmb{a}'_x \cdot \Lambda'_v
+      &\neq \psi_y \cdot \pmb{a}'_y \cdot \Lambda'_v, \\
+    \psi_x^2 + \psi_y^2 &> 0,
+  \end{aligned}\right.
 \end{equation*}
 which entails
 \begin{equation*}
-  \left( \alpha_x \cdot A'_x - \alpha_y \cdot A'_y \right) \cdot \Lambda'_v
-    \neq \vec{0},
-  \quad \alpha_x^2 + \alpha_y^2 > 0.
+  \left\{\begin{aligned}
+    \left( \psi_x \cdot \pmb{a}'_x - \psi_y \cdot \pmb{a}'_y \right) \cdot \Lambda'_v
+      &\neq \pmb{0} \\
+    \psi_x^2 + \psi_y^2 &> 0.
+  \end{aligned}\right.
 \end{equation*}
-The case $\alpha_x \cdot A'_x = \alpha_y \cdot A'_y$ is impossible
+The case $\psi_x \cdot \pmb{a}'_x = \psi_y \cdot \pmb{a}'_y$ is impossible
 because affine transformation matrix should be invertible
 and its determinant cannot be equal $0$.
 If two rows or columns of matrix are linearly dependent,
 the matrix is singular and cannot represent affine transformation.
-This means that the expression $\alpha_x \cdot A'_x - \alpha_y \cdot A'_y$
+This means that the expression $\psi_x \cdot \pmb{a}'_x - \psi_y \cdot \pmb{a}'_y$
 will never give us a zero vector and we should choose such $\Lambda'_v$
 in which rows are linearly independent
 \begin{equation}\label{eq:vertex-components:independent}
-  \beta \cdot \Lambda'_v \neq \vec{0},
-  \quad \beta \neq \vec{0} \in \mathbb{R}^3.
+  \left\{\begin{aligned}
+    \pmb{\chi} \cdot \Lambda'_v &\neq \pmb{0}, \\
+    \pmb{\chi} &\neq \pmb{0},
+  \end{aligned}\right.
+  \qquad \pmb{\chi} \in \mathbb{R}^3.
 \end{equation}
 Two rows are not enough if we have more than $2$ shape parameters.
 Let's return to the equation \eqref{eq:linear:shape:first}
 and suppose we have two different vertices projected on axis $x$
 \begin{equation*}
   \begin{bmatrix}
-    A'_x \cdot \lambda^1_v & \dots & A'_x \cdot \lambda^n_v \\
-    A'_x \cdot \lambda^1_u & \dots & A'_x \cdot \lambda^n_u \\
+    \pmb{a}'_x \cdot \lambda^1_v & \dots & \pmb{a}'_x \cdot \lambda^n_v \\
+    \pmb{a}'_x \cdot \lambda^1_u & \dots & \pmb{a}'_x \cdot \lambda^n_u \\
   \end{bmatrix}
   \cdot \begin{bmatrix}
     s_1 \\
@@ -96,117 +105,129 @@ and suppose we have two different vertices projected on axis $x$
     s_n
   \end{bmatrix}
   = \begin{bmatrix}
-    p_{v_x} - A_x \cdot \lambda^0_v \\
-    p_{u_x} - A_x \cdot \lambda^0_u \\
+    p_{v_x} - \pmb{a}_x \cdot \lambda^0_v \\
+    p_{u_x} - \pmb{a}_x \cdot \lambda^0_u \\
   \end{bmatrix}.
 \end{equation*}
 Rows of the system should be linearly independent as well
 \begin{equation*}
-  A'_x \cdot \alpha_v \cdot \Lambda'_v
-  \neq A'_x \cdot \alpha_u \cdot \Lambda'_u,
-  \quad \alpha_v^2 + \alpha_u^2 > 0,
+  \left\{\begin{aligned}
+    \pmb{a}'_x \cdot \psi_v \cdot \Lambda'_v
+    &\neq \pmb{a}'_x \cdot \psi_u \cdot \Lambda'_u, \\
+    \psi_v^2 + \psi_u^2 &> 0,
+  \end{aligned}\right.
 \end{equation*}
 thus
 \begin{equation*}
-  A'_x \cdot \left( \alpha_v \cdot \Lambda'_v
-                  - \alpha_u \cdot \Lambda'_u \right)
-    \neq 0,
-  \quad \alpha_v^2 + \alpha_u^2 > 0.
+  \left\{\begin{aligned}
+    \pmb{a}'_x \cdot \left( \psi_v \cdot \Lambda'_v
+                    - \psi_u \cdot \Lambda'_u \right)
+      &\neq 0, \\
+    \psi_v^2 + \psi_u^2 &> 0.
+  \end{aligned}\right.
 \end{equation*}
-Row $A'_x$ cannot be $\vec{0}$ because it's a row of nonsingular matrix.
+Row $\pmb{a}'_x$ cannot be $\pmb{0}$ because it's a row of nonsingular matrix.
 Matrices $\Lambda'_v$ and $\Lambda'_u$
 should be chosen to be linearly independent
 \begin{equation*}
-  \alpha_v \cdot \Lambda'_v \neq \alpha_u \cdot \Lambda'_u,
-  \quad \alpha_v^2 + \alpha_u^2 > 0.
+  \left\{\begin{aligned}
+    \psi_v \cdot \Lambda'_v &\neq \psi_u \cdot \Lambda'_u, \\
+    \psi_v^2 + \psi_u^2 &> 0.
+  \end{aligned}\right.
 \end{equation*}
 As in the case with two projections of a single vertex,
 we have original equation with new constraints
 \begin{equation*}
-  \begin{cases}
-    \beta \cdot \left( \alpha_v \cdot \Lambda'_v
-                     - \alpha_u \cdot \Lambda'_u \right)
-    \neq \vec{0}, \\
-    \alpha_v \cdot \Lambda'_v \neq \alpha_u \cdot \Lambda'_u,
-  \end{cases}
-  \quad \alpha_v^2 + \alpha_u^2 > 0,
-  \quad \beta \neq \vec{0} \in \mathbb{R}^3.
+  \left\{\begin{aligned}
+    \pmb{\chi} \cdot \left( \psi_v \cdot \Lambda'_v
+                - \psi_u \cdot \Lambda'_u \right)
+    &\neq \pmb{0}, \\
+    \pmb{\chi} &\neq \pmb{0}, \\
+    \psi_v \cdot \Lambda'_v &\neq \psi_u \cdot \Lambda'_u, \\
+    \psi_v^2 + \psi_u^2 &> 0, \\
+  \end{aligned}\right.
+  \quad \pmb{\chi} \in \mathbb{R}^3.
 \end{equation*}
-Nothing will be affected if we will say that $\alpha_u = - \alpha_u$,
+Nothing will be affected if we will say that $\psi_u = - \psi_u$,
 but it will be more convenient.
 The first inequality unfolded
 \begin{equation*}
-  \beta \cdot \begin{bmatrix}
-    \alpha_v \cdot \lambda_{v_x} + \alpha_u \cdot \lambda_{u_x} \\
-    \alpha_v \cdot \lambda_{v_y} + \alpha_u \cdot \lambda_{u_y} \\
-    \alpha_v \cdot \lambda_{v_z} + \alpha_u \cdot \lambda_{u_z} \\
-  \end{bmatrix}
-  \neq \vec{0},
-  \quad \alpha_v^2 + \alpha_u^2 > 0,
-  \quad \beta \neq \vec{0} \in \mathbb{R}^3.
+  \left\{\begin{aligned}
+    \pmb{\chi} \cdot \begin{bmatrix}
+      \psi_v \cdot \pmb{\lambda}_{v_x} + \psi_u \cdot \pmb{\lambda}_{u_x} \\
+      \psi_v \cdot \pmb{\lambda}_{v_y} + \psi_u \cdot \pmb{\lambda}_{u_y} \\
+      \psi_v \cdot \pmb{\lambda}_{v_z} + \psi_u \cdot \pmb{\lambda}_{u_z} \\
+    \end{bmatrix}
+    &\neq \pmb{0}, \\
+    \pmb{\chi} &\neq \pmb{0}, \\
+    \psi_v^2 + \psi_u^2 &> 0, \\
+  \end{aligned}\right.
+  \qquad \pmb{\chi} \in \mathbb{R}^3.
 \end{equation*}
-It will be convenient to define $\gamma_{w_i} = \beta^i \cdot \alpha_w$.
+It will be convenient to define $\gamma_{w_i} = \chi^i \cdot \psi_w$.
 These components will not all be equal to zero at the same time because
 sum of their squares equals product of sums of squares
-of $\alpha$ and $\beta$ components, which both are greater than $0$
+of $\pmb{\psi}$ and $\pmb{\chi}$ components, which both are greater than $0$
 \begin{equation*}
   \sum_{w \in \left\{ v, u \right\}}
-  \sum_{i \in I}
+  \sum_{i \in \mathcal{I}}
     \left( \gamma_{w_i} \right)^2
   =
-  \sum_{i \in I}
-    \left( \beta^i \right)^2 \cdot
+  \sum_{i \in \mathcal{I}}
+    \left( \chi^i \right)^2 \cdot
   \sum_{w \in \left\{ v, u \right\}}
-    \left( \alpha_w \right)^2
+    \left( \psi_w \right)^2
   > 0.
 \end{equation*}
 Finally,
 \begin{equation}\label{eq:components:independent}
-  \sum_{w \in \left\{ v, u \right\}}
-  \sum_{i \in I}
-    \gamma_{w_i} \cdot \lambda_{w_i}
-  \neq \vec{0},
-  \quad
-    \sum_{w \in \left\{ v, u \right\}}
-    \sum_{i \in I}
-      \left( \gamma_{w_i} \right)^2 > 0.
+  \left\{\begin{aligned}
+    \sum\limits_{w \in \left\{ v, u \right\}}
+    \sum\limits_{i \in \mathcal{I}}
+      \gamma_{w_i} \cdot \pmb{\lambda}_{w_i}
+    &\neq \pmb{0}, \\
+    \sum\limits_{w \in \left\{ v, u \right\}}
+    \sum\limits_{i \in \mathcal{I}}
+      \left( \gamma_{w_i} \right)^2 &> 0.
+  \end{aligned}\right.
 \end{equation}
 Now we see that all components of chosen vertices
-should be linearly independent in their linear span.
+should be linearly independent linear span of another chosen components.
 
 We need to choose such vertices that each component of any of them
 will be linearly independent with other components.
-Define projection of vector $u$ on vector $v$ as
-\begin{equation*}
-  proj_v\left( u \right)
-  = \frac{\left( u, v \right)}{\left\| v \right\|^2} \cdot v.
-\end{equation*}
 We need a shortcut to watch those vertices
 which have linearly independent components
 \begin{equation*}
   \Lambda'^{\perp}_v = \begin{bmatrix}
-    \lambda'_{v_x} \\
-    \lambda'_{v_y} - proj_{\lambda'_{v_x}}\left( \lambda'_{v_y} \right) \\
-    \lambda'_{v_z} - proj_{\lambda'_{v_x}}\left( \lambda'_{v_z} \right)
-                   - proj_{\lambda'_{v_y}}\left( \lambda'_{v_z} \right) \\
+    \begin{aligned}
+      \pmb{\lambda}'_{v_x} \\
+      \pmb{\lambda}'_{v_y}
+        - \left( \pmb{\lambda}'_{v_y} \parallel \pmb{\lambda}'^{\perp}_{v_x} \right) \\
+      \pmb{\lambda}'_{v_z}
+        - \left( \pmb{\lambda}'_{v_z} \parallel \pmb{\lambda}'^{\perp}_{v_y} \right)
+        - \left( \pmb{\lambda}'_{v_z} \parallel \pmb{\lambda}'^{\perp}_{v_x} \right) \\
+    \end{aligned}
   \end{bmatrix},
-  \quad \lambda'_v \in \Lambda'_v.
+  \quad \pmb{\lambda}'_v \in \Lambda'_v.
 \end{equation*}
 Finally, the set of needed vertices is constructed as follows
 \begin{equation*}
-  \mathcal{S}
+  \mathcal{F}^s
   = \left\{ v^k \;\middle|\;
-    \lambda'^{\perp}_{v^k_t}
-    - \sum_{j = 1}^{k - 1} \sum_{i \in I}
-    proj_{\lambda'^{\perp}_{v^j_i}} \neq \vec{0},
-    \quad t \in I
+    \pmb{\lambda}'^{\perp}_{v^k_t}
+    - \sum_{j = 1}^{k - 1} \sum_{i \in \mathcal{I}}
+      \left( \pmb{\lambda}'^{\perp}_{v^k_t}
+             \parallel \pmb{\lambda}'^{\perp}_{v^j_i} \right)
+    \neq \pmb{0},
+    \quad t \in \mathcal{I}
   \right\}.
 \end{equation*}
 All components should be linearly independent.
 The generative model is based on PCA,
 where each component of each vertex is a separate value to be analyzed.
-Each component is represented as a vector in $n$-dimensional space
-and we can have not more than $n$ linearly independent components.
+Each component is represented as a vector in $n$-dimensional space.
+Therefore we can get $n$ linearly independent components.
 It appeared in \eqref{eq:components:independent}
 that vertices should be chosen so that
 all components of all vertices are linearly independent.

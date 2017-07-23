@@ -6,10 +6,10 @@ Given projection of vertices on $xy$ plane,
 we can build a system of bilinear equations
 \begin{equation*}
   p_{v_i}
-  = G_{v_i}\left( s; A \right)
+  = G_{v_i}\left( \pmb{s}; A \right)
   = \sum\limits_{j = 0}^{n} \sum\limits_{k = 0}^{3}
-    s_{j} \cdot \lambda^{j}_{v_k} \cdot A_i^{k},
-  \quad i \in I^p.
+    s_{j} \cdot \lambda^{j}_{v_k} \cdot a_i^{k},
+  \quad i \in \mathcal{I}^p.
 \end{equation*}
 Assume we have added projection of another vertex $u$.
 Coefficients $s$ and $A^x$ are generic
@@ -19,62 +19,55 @@ We need to add only PCA coefficients
   p_{v_i} + p_{u_i}
   = \sum\limits_{j = 0}^{n} \sum\limits_{k = 0}^{3}
     s_{j} \cdot \left( \lambda^{j}_{v_k} + \lambda^{j}_{u_k} \right)
-    \cdot A_x^{k},
-  \quad i \in I.
+    \cdot a_x^{k},
+  \quad i \in \mathcal{I}.
 \end{equation*}
-In matrix view
+Matrix notation
 \begin{equation*}
-  G_{v_i}\left( s; A \right) + G_{u_i}\left( s; A \right)
-  = A_i \cdot \left( \Lambda_v + \Lambda_u \right) \cdot s,
-  \quad v, u \in V,
-  \quad i \in I.
+  G_{v_i}\left( \pmb{s}; A \right) + G_{u_i}\left( \pmb{s}; A \right)
+  = \pmb{a}_i \cdot \left( \Lambda_v + \Lambda_u \right) \cdot \pmb{s},
+  \quad i \in \mathcal{I}.
 \end{equation*}
 We can multiply projections by scalars
-and this will change only coefficients matrix
-\begin{equation*}
-  \alpha \cdot p_{v_i} + \beta \cdot p_{u_i}
-  = A_i
-    \cdot \left( \alpha \cdot \Lambda_v + \beta \cdot \Lambda_u \right)
-    \cdot s,
-  \quad i \in I,
-  \quad \alpha, \beta \in \mathbb{R}.
-\end{equation*}
-In other words, for any real column vector $\varphi$
+and this will change only coefficients matrix.
+In other words, for any real column vector $\pmb{\varphi}$
 \begin{equation*}
   \sum_{w \in V} \varphi_w \cdot p_{w_i}
-  = A_i
+  = \pmb{a}_i
     \cdot \left( \sum_{w \in V} \varphi_w \cdot \Lambda_w \right)
-    \cdot s,
-  \quad \varphi \in \mathbb{R}^m.
+    \cdot \pmb{s},
+  \quad \pmb{\varphi} \in \mathbb{R}^m,
 \end{equation*}
+and it's possible to add equations with each other
+and multiply them by constant.
 
 We have a system of bilinear equations,
 where only the coefficients matrix $\Lambda$ is known
 \begin{equation}\label{eq:bilinear:matrix}
   p_{v_i}
-  = A_i \cdot \Lambda_v \cdot s,
-  \quad i \in I^p.
+  = \pmb{a}_i \cdot \Lambda_v \cdot \pmb{s},
+  \quad i \in \mathcal{I}^p.
 \end{equation}
 
 \subsection{Reducing the problem to system of linear equations}
 The first component of the shape vector $s$ equals $1$ by definition.
 Other components are unknown,
 but can be ignored if corresponding coefficients will be $0$.
-We can reach this by finding such vector $\varphi^k$
+We can reach this by finding such vector $\pmb{\varphi}^k$
 that all cells except one in the row $k$ of the column $0$ will become zero
 \begin{equation*}
-  \begin{cases}
+  \left\{\begin{aligned}
     \sum\limits_{w \in V} \varphi_w^k \cdot \lambda_{w_k}^0 &\neq 0, \\
     \sum\limits_{w \in V} \varphi_w^k \cdot \lambda_{w_i}^j &= 0,
       \quad j > 0,
       \quad v_i \neq u_k, \\
-  \end{cases}
-  \quad i, k \in I.
+  \end{aligned}\right.
+  \quad i, k \in \mathcal{I}.
 \end{equation*}
-Given vector $\varphi^x$, we have an equation
+Given vector $\pmb{\varphi}^x$, we have an equation
 \begin{equation*}
   \sum\limits_{w \in V} \varphi_w^x \cdot p_{w_x}
-  = A_x
+  = \pmb{a}_x
     \cdot \begin{bmatrix}
       0                                     & 0 & \dots & 0 \\
       \sum\limits_{w \in V} \varphi_w^x
@@ -82,12 +75,7 @@ Given vector $\varphi^x$, we have an equation
       0                                     & 0 & \dots & 0 \\
       0                                     & 0 & \dots & 0 \\
     \end{bmatrix}
-    \cdot \begin{bmatrix}
-      1 \\
-      s_1 \\
-      \vdots \\
-      s_n
-    \end{bmatrix}.
+    \cdot \pmb{s}.
 \end{equation*}
 Product of last two items will give a column vector
 \begin{equation*}
@@ -103,80 +91,59 @@ Product of last two items will give a column vector
 \end{equation*}
 The final expression is
 \begin{equation*}
-  \sum\limits_{w \in V} \varphi_w^x \cdot p_{w_x}
-  = a_x^x \cdot \sum\limits_{w \in V} \varphi_w^x \cdot \lambda^0_{w_x}.
+  a_x^x
+  = \frac{\sum\limits_{w \in V} \varphi_w^x \cdot p_{w_x}}
+         {\sum\limits_{w \in V} \varphi_w^x \cdot \lambda^0_{w_x}}.
 \end{equation*}
-We should notice that only vector $\varphi^0$
+We should notice that only vector $\pmb{\varphi}^0$
 should not have a zero sum of its components.
 Other vectors should in order to have cell in the $0$th column and $0$th row
 of the summary matrix be equal to zero.
 This happens because in each $\Lambda_v$ matrix value in cell on this position
 is equal to $1$.
-Look at the following equation to see what it means for $\varphi^0$
+Look at the following equation to see what it means for $\pmb{\varphi}^0$
 and projection to $x$ axis
 \begin{equation*}
   \sum\limits_{w \in V} \varphi_w^0 \cdot p_{w_x}
-  = \left\langle a^0_x, a_x^x, a_x^y, a_x^z \right\rangle
-    \cdot \begin{bmatrix}
+  = \pmb{a}_x \cdot \begin{bmatrix}
       \sum\limits_{w \in V} \varphi_w^0 & 0 & \dots & 0 \\
       0                                 & 0 & \dots   & 0 \\
       0                                 & 0 & \dots & 0 \\
       0                                 & 0 & \dots & 0 \\
     \end{bmatrix}
-    \cdot \begin{bmatrix}
-      1 \\
-      s_1 \\
-      \vdots \\
-      s_n
-    \end{bmatrix}.
+    \cdot \pmb{s}.
 \end{equation*}
-Resulting equation for the $x$ offset is
+Solution for the $x$ offset is
 \begin{equation*}
-  \sum\limits_{w \in V} \varphi_w^0 \cdot p_{w_x}
-  = a^0_x \cdot \sum\limits_{w \in V} \varphi_w^0.
+  a^0_x
+  = \frac{\sum\limits_{w \in V} \varphi_w^0 \cdot p_{w_x}}
+         {\sum\limits_{w \in V} \varphi_w^0}.
 \end{equation*}
 
 Now we have a system of linear equations
 with respect to $x$ and $y$ rows of affine transformation matrix
 \begin{equation*}
   \sum\limits_{w \in V} \varphi_w^j \cdot p_{w_i}
-  = A_i^j \cdot \sum\limits_{w \in V} \varphi_w^j \lambda^0_{w_j},
-  \quad i \in I^p,
-  \quad j \in I^h.
+  = a_i^j \cdot \sum\limits_{w \in V} \varphi_w^j \lambda^0_{w_j},
+  \quad i \in \mathcal{I}^p,
+  \quad j \in \mathcal{I}^h.
 \end{equation*}
-Even though $\Lambda_v$ are matrices,
-we can represent them as column vectors
-in order to find right vectors $\varphi$.
-Final vector is a concatenation of columns of given matrix
-\begin{equation*}
-  \Lambda_v = \begin{bmatrix}
-    1               & 0               & \dots & 0 \\
-    \lambda^0_{v_x} & \lambda^1_{v_x} & \dots & \lambda^n_{v_x} \\
-    \lambda^0_{v_y} & \lambda^1_{v_y} & \dots & \lambda^n_{v_y} \\
-    \lambda^0_{v_z} & \lambda^1_{v_z} & \dots & \lambda^n_{v_z} \\
-  \end{bmatrix}
-  \mapsto
-  \begin{bmatrix}
-    1 \\
-    \lambda^0_{v_x} \\
-    \lambda^0_{v_y} \\
-    \vdots \\
-    \lambda^n_{v_y} \\
-    \lambda^n_{v_z} \\
-  \end{bmatrix}.
-\end{equation*}
-All these vectors can be concatenated to a matrix
+
+\subsection{Solving reduced linear equations}
+
+Vectorized matrices $\pmb{\Lambda}_v$
+can be concatenated to matrix
 in order to build a linear equation.
-Example of the equation of $\varphi^y$
+Example of the equation with respect to $\pmb{\varphi}^y$
 \begin{equation}\label{eq:linear:affine}
   \begin{bmatrix}
-    1                 & 1                 & \dots & 1                 & \\
-    \lambda^0_{v^1_x} & \lambda^0_{v^2_x} & \dots & \lambda^0_{v^m_x} & \\
-    \lambda^0_{v^1_y} & \lambda^0_{v^2_y} & \dots & \lambda^0_{v^m_y} & \\
-    \lambda^0_{v^1_z} & \lambda^0_{v^2_z} & \dots & \lambda^0_{v^m_z} & \\
-    \vdots            & \vdots            & \dots & \vdots            & \\
-    \lambda^n_{v^1_y} & \lambda^n_{v^2_y} & \dots & \lambda^n_{v^m_y} & \\
-    \lambda^n_{v^1_z} & \lambda^n_{v^2_z} & \dots & \lambda^n_{v^m_z} & \\
+    1                 & 1                 & \dots  & 1                 & \\
+    \lambda^0_{v^1_x} & \lambda^0_{v^2_x} & \dots  & \lambda^0_{v^m_x} & \\
+    \lambda^0_{v^1_y} & \lambda^0_{v^2_y} & \dots  & \lambda^0_{v^m_y} & \\
+    \lambda^0_{v^1_z} & \lambda^0_{v^2_z} & \dots  & \lambda^0_{v^m_z} & \\
+    \vdots            & \vdots            & \ddots & \vdots            & \\
+    \lambda^n_{v^1_y} & \lambda^n_{v^2_y} & \dots  & \lambda^n_{v^m_y} & \\
+    \lambda^n_{v^1_z} & \lambda^n_{v^2_z} & \dots  & \lambda^n_{v^m_z} & \\
   \end{bmatrix}
   \cdot
   \begin{bmatrix}
@@ -211,18 +178,18 @@ We can solve an equation which will give us a range of possible values of $r_y$
   \end{bmatrix}
   \neq 0,
 \end{equation*}
-and see what constraints vector $\varphi^y$ has.
+and see what constraints vector $\pmb{\varphi}^y$ has.
 Then the row which contains $\lambda^0_{v_y}$ coefficients
 can be dropped from the original equation \eqref{eq:linear:affine}
 and it can be solved as an ordinary linear equation
 \begin{equation*}
   \begin{bmatrix}
-    1                 & 1                 & \dots & 1                 & \\
-    \lambda^0_{v^1_x} & \lambda^0_{v^2_x} & \dots & \lambda^0_{v^m_x} & \\
-    \lambda^0_{v^1_z} & \lambda^0_{v^2_z} & \dots & \lambda^0_{v^m_z} & \\
-    \vdots            & \vdots            & \dots & \vdots            & \\
-    \lambda^n_{v^1_y} & \lambda^n_{v^2_y} & \dots & \lambda^n_{v^m_y} & \\
-    \lambda^n_{v^1_z} & \lambda^n_{v^2_z} & \dots & \lambda^n_{v^m_z} & \\
+    1                 & 1                 & \dots  & 1                 & \\
+    \lambda^0_{v^1_x} & \lambda^0_{v^2_x} & \dots  & \lambda^0_{v^m_x} & \\
+    \lambda^0_{v^1_z} & \lambda^0_{v^2_z} & \dots  & \lambda^0_{v^m_z} & \\
+    \vdots            & \vdots            & \ddots & \vdots            & \\
+    \lambda^n_{v^1_y} & \lambda^n_{v^2_y} & \dots  & \lambda^n_{v^m_y} & \\
+    \lambda^n_{v^1_z} & \lambda^n_{v^2_z} & \dots  & \lambda^n_{v^m_z} & \\
   \end{bmatrix}
   \cdot
   \begin{bmatrix}
@@ -247,4 +214,4 @@ will be a final solution set, which may be empty.
 When the system will be solved,
 we will get two rows of the matrix $A$
 and this will change bilinear equation \eqref{eq:bilinear:matrix}
-to linear with respect to shape parameter $s$.
+to linear with respect to shape parameter $\pmb{s}$.
